@@ -27,7 +27,12 @@
                     "default": 100,
                     "description": "Just a number option."
                 }
-            }
+            },
+            "grammars": [{
+                "language": "yqls",
+                "scopeName": "source.yqls",
+                "path": "/syntaxes-yqls/YQLS.tmLanguage.json"
+            }]
         }
     },
     "scripts": {
