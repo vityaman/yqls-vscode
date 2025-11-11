@@ -15,3 +15,5 @@ To check the style:
 ```bash
 npm run lint
 ```
+
+To fix the code style press `CTRL+SHIFT+P` and run `ESLint: Fix all auto-fixable Problems`.
