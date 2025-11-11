@@ -7,7 +7,7 @@
     },
     "main": "./client/out/client",
     "activationEvents": [
-        "onLanguage:plaintext"
+        "onLanguage:yqls"
     ],
     "contributes": {
         "languages": [
