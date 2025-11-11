@@ -7,7 +7,7 @@
     },
     "main": "./client/out/client",
     "activationEvents": [
-        "onLanguage:yqls"
+        "onLanguage"
     ],
     "contributes": {
         "languages": [
@@ -15,7 +15,8 @@
                 "id": "yqls",
                 "extensions": [
                     ".yqls"
-                ]
+                ],
+                "configuration": "./language-configuration.json"
             }
         ],
         "configuration": {
@@ -27,13 +28,13 @@
                     "default": 100,
                     "description": "Just a number option."
                 }
-            },
-            "grammars": [{
-                "language": "yqls",
-                "scopeName": "source.yqls",
-                "path": "/syntaxes-yqls/YQLS.tmLanguage.json"
-            }]
-        }
+            }
+        },
+        "grammars": [{
+            "language": "yqls",
+            "scopeName": "source.yqls",
+            "path": "./syntaxes-yqls/YQLs.tmLanguage.json"
+        }]
     },
     "scripts": {
         "postinstall": "(cd client && npm install) && (cd server && npm install)",
