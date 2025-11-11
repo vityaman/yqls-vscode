@@ -1,52 +1,52 @@
-import * as path from 'path';
-import { ExtensionContext } from 'vscode';
+import * as path from 'path'
+import { ExtensionContext } from 'vscode'
 
 import {
-    LanguageClient,
-    LanguageClientOptions,
-    ServerOptions,
-    TransportKind
-} from 'vscode-languageclient/node';
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+  TransportKind,
+} from 'vscode-languageclient/node'
 
-let client: LanguageClient | undefined = undefined;
+let client: LanguageClient | undefined = undefined
 
 export function activate(context: ExtensionContext) {
-    let module = context.asAbsolutePath(path.join('server', 'out', 'server.js'));
+  const module = context.asAbsolutePath(path.join('server', 'out', 'server.js'))
 
-    const serverOptions: ServerOptions = {
-        run: {
-            module: module,
-            transport: TransportKind.ipc,
-        },
-        debug: {
-            module: module,
-            transport: TransportKind.ipc,
-        }
-    };
+  const serverOptions: ServerOptions = {
+    run: {
+      module: module,
+      transport: TransportKind.ipc,
+    },
+    debug: {
+      module: module,
+      transport: TransportKind.ipc,
+    },
+  }
 
-    const clientOptions: LanguageClientOptions = {
-        documentSelector: [
-            {
-                scheme: 'file',
-                language: 'plaintext',
-            },
-        ],
-    };
+  const clientOptions: LanguageClientOptions = {
+    documentSelector: [
+      {
+        scheme: 'file',
+        language: 'plaintext',
+      },
+    ],
+  }
 
-    client = new LanguageClient(
-        'languageServerYQLs',
-        'YQLs LSP Server',
-        serverOptions,
-        clientOptions,
-    );
+  client = new LanguageClient(
+    'languageServerYQLs',
+    'YQLs LSP Server',
+    serverOptions,
+    clientOptions,
+  )
 
-    client.start();
+  void client.start()
 }
 
 export function deactivate(): Thenable<void> | undefined {
-    if (!client) {
-        return undefined;
-    }
+  if (!client) {
+    return undefined
+  }
 
-    return client.stop();
+  return client.stop()
 }

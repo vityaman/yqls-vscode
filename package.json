@@ -2,6 +2,7 @@
     "name": "yqls-vscode",
     "version": "0.0.1",
     "publisher": "vityaman",
+	"type": "module",
     "engines": {
 		"vscode": "^1.100.0"
 	},
@@ -30,11 +31,11 @@
 		"lint": "eslint"
 	},
     "devDependencies": {
-		"@eslint/js": "^9.13.0",
-		"@stylistic/eslint-plugin": "^2.9.0",
+		"@eslint/js": "^9.36.0",
+    	"@stylistic/eslint-plugin": "^5.4.0",
 		"@types/node": "^22",
-		"eslint": "^9.13.0",
+		"eslint": "^9.36.0",
 		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.39.0"
+		"typescript-eslint": "^8.44.0"
 	}
 }
