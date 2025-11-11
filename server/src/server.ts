@@ -83,7 +83,10 @@ connection.onHover((request: HoverParams): Hover | undefined => {
 
 connection.onCompletion((request: TextDocumentPositionParams): CompletionItem[] => {
   connection.console.debug(`Connection::onCompletion ${request.textDocument.uri}`)
-  return []
+
+  const uri = request.textDocument.uri
+  const file = service.fileByUri(uri)
+  return file.candidatesAt(request.position)
 })
 
 connection.onCompletionResolve((request: CompletionItem): CompletionItem => {
