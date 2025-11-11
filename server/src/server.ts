@@ -20,9 +20,11 @@ import {
 } from 'vscode-languageserver/node'
 
 import { TextDocument } from 'vscode-languageserver-textdocument'
+import { YQLsLanguageService } from './service'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
+const service = new YQLsLanguageService()
 
 connection.onInitialize((params: InitializeParams) => {
   connection.console.debug('Connection::onInitialize ' + (params.processId?.toString() ?? ''))
@@ -94,12 +96,19 @@ connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] 
   return []
 })
 
-documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {
-  connection.console.debug(`documents::onDidClose ${e.document.uri}`)
+documents.onDidOpen((e: TextDocumentChangeEvent<TextDocument>) => {
+  connection.console.debug(`documents::onDidOpen ${e.document.uri}`)
+  service.fileByUri(e.document.uri).setText(e.document.getText())
 })
 
 documents.onDidChangeContent((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidChangeContent ${e.document.uri}`)
+  service.fileByUri(e.document.uri).setText(e.document.getText())
+})
+
+documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {
+  connection.console.debug(`documents::onDidClose ${e.document.uri}`)
+  service.removeFileByUri(e.document.uri)
 })
 
 documents.listen(connection)
