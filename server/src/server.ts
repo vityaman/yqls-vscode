@@ -19,12 +19,15 @@ import {
   TextEdit,
 } from 'vscode-languageserver/node'
 
-import { Position, TextDocument } from 'vscode-languageserver-textdocument'
+import { TextDocument } from 'vscode-languageserver-textdocument'
 import { YQLsLanguageService } from './service'
+import { YQLsDocumentation } from './documentation'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
+
 const service = new YQLsLanguageService()
+const documentation = new YQLsDocumentation()
 
 connection.onInitialize((params: InitializeParams) => {
   connection.console.debug('Connection::onInitialize ' + (params.processId?.toString() ?? ''))
@@ -57,10 +60,24 @@ connection.languages.diagnostics.on((request: DocumentDiagnosticParams) => {
   } satisfies DocumentDiagnosticReport
 })
 
-connection.onHover((request: HoverParams): Hover => {
+connection.onHover((request: HoverParams): Hover | undefined => {
   connection.console.debug(`Connection::onHover ${request.textDocument.uri}`)
+
+  const uri = request.textDocument.uri
+  const file = service.fileByUri(uri)
+
+  const name = file.nameAt(request.position)
+  if (!name) {
+    return undefined
+  }
+
+  const contents = documentation.findByName(name)
+  if (!contents) {
+    return undefined
+  }
+
   return {
-    contents: request.textDocument.uri,
+    contents: contents,
   }
 })
 
