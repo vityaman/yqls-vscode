@@ -2,7 +2,6 @@
     "name": "yqls-vscode",
     "version": "0.0.1",
     "publisher": "vityaman",
-	"type": "module",
     "engines": {
 		"vscode": "^1.100.0"
 	},

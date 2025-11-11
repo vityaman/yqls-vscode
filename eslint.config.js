@@ -1,5 +1,4 @@
 import js from '@eslint/js'
-import globals from 'globals'
 import tseslint from 'typescript-eslint'
 import stylistic from '@stylistic/eslint-plugin'
 import { defineConfig, globalIgnores } from 'eslint/config'
@@ -16,7 +15,6 @@ export default defineConfig([
     ],
     languageOptions: {
       ecmaVersion: 2024,
-      globals: globals.browser,
       parserOptions: {
         projectService: true,
         tsconfigRootDir: import.meta.dirname,
