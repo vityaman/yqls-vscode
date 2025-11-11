@@ -121,6 +121,11 @@
     "named": false
   },
   {
+    "type": "comment",
+    "named": true,
+    "extra": true
+  },
+  {
     "type": "hexstring",
     "named": true
   },

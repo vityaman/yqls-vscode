@@ -14,11 +14,10 @@ module.exports = grammar({
   name: "yqls",
   extras: ($) => [
     /\s/,
-    // $.comment
+    $.comment,
   ],
   rules: {
     source_file: $ => repeat($.list),
-
     list: $ => seq(
       '(',
       repeat($.element),
@@ -56,6 +55,9 @@ module.exports = grammar({
       repeat(seq("\\",
         /./,
         repeat(/[^"\\]/))),
-      '"'))
+      '"')),
+    comment: $ => token(
+      seq("#", /.*/)
+    )
   }
 });
