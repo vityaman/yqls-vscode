@@ -13,6 +13,9 @@
         "languages": [
             {
                 "id": "yqls",
+                "aliases": [
+                    "YQLs"
+                ],
                 "extensions": [
                     ".yqls"
                 ],
@@ -30,11 +33,13 @@
                 }
             }
         },
-        "grammars": [{
-            "language": "yqls",
-            "scopeName": "source.yqls",
-            "path": "./syntaxes-yqls/YQLs.tmLanguage.json"
-        }]
+        "grammars": [
+            {
+                "language": "yqls",
+                "scopeName": "source.yqls",
+                "path": "./syntaxes-yqls/YQLs.tmLanguage.json"
+            }
+        ]
     },
     "scripts": {
         "postinstall": "(cd client && npm install) && (cd server && npm install)",
