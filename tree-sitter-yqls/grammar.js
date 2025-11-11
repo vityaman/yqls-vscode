@@ -7,10 +7,14 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+
+
+
 module.exports = grammar({
   name: "yqls",
   extras: ($) => [
-    /\s/, // whitespace; TODO add comments here
+    /\s/,
+    // $.comment
   ],
   rules: {
     source_file: $ => repeat($.list),
@@ -21,10 +25,37 @@ module.exports = grammar({
       ')'
     ),
     element: $ => choice(
+      $.quotedatom,
       $.list,
       $.atom,
     ),
-    atom: $ => $.string,
-    string: $ => '"str"', // hardcoded value for now
+    quotedatom: $ => seq(
+      '\'',
+      choice($.list, $.atom)
+    ),
+    atom: $ => choice(
+      $.ident,
+      $.hexstring,
+      $.string,
+      $.multilinestring
+    ),
+    ident: $ => /[^ \t\n\r"#'()@]+/,
+    string: $ => token(seq('"',
+      repeat(/[^"\\]/),
+      repeat(seq("\\",
+        /./,
+        repeat(/[^"\\]/))),
+      '"')),
+    multilinestring: $ => seq(
+      "@@",
+      repeat(/[^@]/),
+      "@@",
+    ),
+    hexstring: $ => token(seq('x"',
+      repeat(/[^"\\]/),
+      repeat(seq("\\",
+        /./,
+        repeat(/[^"\\]/))),
+      '"'))
   }
 });

@@ -1,0 +1,33 @@
+(let Equals (lambda '(value) (lambda '(x) (== x value))))
+(let Unequals (lambda '(value) (lambda '(x) (!= x value))))
+
+(let FindIndex (lambda '(list predicate) (block '(
+   (let enumerated (Enumerate (Coalesce list (EmptyList))))
+   (let filtered (Filter enumerated (lambda '(x) (Coalesce (Apply predicate (Nth x '1)) (Bool '0)))))
+   (return (Nth (ToOptional filtered) '0))
+))))
+
+(let IndexOf (lambda '(list item) (Apply FindIndex list (Apply Equals item))))
+(let RemoveOptionalType (lambda '(type) (MatchType type 'Optional (lambda '() (OptionalItemType type))  (lambda '() type))))
+(let MaskBit (lambda '(value index) (ShiftLeft (Data (Apply RemoveOptionalType (TypeOf value)) '1) index)))
+
+(let TestBitInt (lambda '(value index) (Convert (BitAnd value (Apply MaskBit value index)) 'Bool)))
+(let TestBitStr (lambda '(value index) (Just (Coalesce (Apply TestBitInt (ByteAt value (Convert (ShiftRight (Convert index 'Uint64) (Uint8 '3)) 'Uint32)) (BitAnd (Convert index 'Uint8) (Uint8 '7))) (Bool 'false)))))
+(let TestBit (lambda '(value index) (block '(
+    (let x (InstanceOf (Apply RemoveOptionalType (TypeOf value))))
+    (return (IfType x (DataType 'String)
+        (lambda '() (Apply TestBitStr value index))
+        (lambda '() (IfType x (DataType 'Utf8)
+            (lambda '() (Apply TestBitStr value index))
+            (lambda '() (Apply TestBitInt value index))))))
+))))
+(let SetBit (lambda '(value index) (BitOr value (Apply MaskBit value index))))
+(let ClearBit (lambda '(value index) (BitAnd value (BitNot (Apply MaskBit value index)))))
+(let FlipBit (lambda '(value index) (BitXor value (Apply MaskBit value index))))
+
+(let Decode (lambda '(key cases default) (block '(
+   (let n (Enumerate cases))
+   (let p (Filter (Zip (Skip n (Uint64 '1)) n) (lambda '(x) (!= (BitAnd (Uint64 '1) (Nth (Nth x '0) '0)) (Uint64 '0)))))
+   (let f (Fold p default (lambda '(x state) (If (== key (Nth (Nth x '1) '1)) (Nth (Nth x '0) '1) state))))
+   (return f)
+))))

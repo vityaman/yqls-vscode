@@ -1,0 +1,4 @@
+(
+(let id (lambda '(x) (Apply (Callable (CallableType '() '((TypeOf x))) (lambda '() x)))))
+(export id)
+)
