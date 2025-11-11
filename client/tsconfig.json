@@ -8,7 +8,13 @@
 		"outDir": "out",
 		"rootDir": "src",
 		"sourceMap": true,
+
 		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"erasableSyntaxOnly": true,
+		"noFallthroughCasesInSwitch": true,
+		"noUncheckedSideEffectImports": true,
 	},
 	"include": [
 		"src",
