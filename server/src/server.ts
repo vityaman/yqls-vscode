@@ -12,12 +12,17 @@ import {
   InitializeParams,
   Location,
   ProposedFeatures,
+  TextDocumentChangeEvent,
   TextDocumentPositionParams,
+  TextDocuments,
   TextDocumentSyncKind,
   TextEdit,
 } from 'vscode-languageserver/node'
 
+import { TextDocument } from 'vscode-languageserver-textdocument'
+
 const connection = createConnection(ProposedFeatures.all)
+const documents = new TextDocuments(TextDocument)
 
 connection.onInitialize((params: InitializeParams) => {
   connection.console.debug('Connection::onInitialize ' + (params.processId?.toString() ?? ''))
@@ -89,4 +94,13 @@ connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] 
   return []
 })
 
+documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {
+  connection.console.debug(`documents::onDidClose ${e.document.uri}`)
+})
+
+documents.onDidChangeContent((e: TextDocumentChangeEvent<TextDocument>) => {
+  connection.console.debug(`documents::onDidChangeContent ${e.document.uri}`)
+})
+
+documents.listen(connection)
 connection.listen()
