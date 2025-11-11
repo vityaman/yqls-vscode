@@ -22,6 +22,7 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument'
 import { YQLsLanguageService } from './service'
 import { YQLsDocumentation } from './documentation'
+import { YQLsTreeSitter } from './tree-sitter'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
@@ -137,6 +138,11 @@ documents.onDidOpen((e: TextDocumentChangeEvent<TextDocument>) => {
 documents.onDidChangeContent((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidChangeContent ${e.document.uri}`)
   service.fileByUri(e.document.uri).setText(e.document.getText())
+
+  // TODO(vityaman): remove, it is for demostration.
+  const ts = new YQLsTreeSitter()
+  const tree = ts.parse(e.document.getText())
+  connection.console.debug(`TreeSitter: ${tree.rootNode.toString()}`)
 })
 
 documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {
