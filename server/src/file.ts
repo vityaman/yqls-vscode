@@ -1,11 +1,15 @@
 export class YQLsFile {
-  text: string
+  #text: string
 
   constructor() {
-    this.text = ''
+    this.#text = ''
   }
 
   setText(text: string) {
-    this.text = text
+    this.#text = text
+  }
+
+  formatted(): string {
+    return this.#text + ' (formatted)'
   }
 }

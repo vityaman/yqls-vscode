@@ -19,7 +19,7 @@ import {
   TextEdit,
 } from 'vscode-languageserver/node'
 
-import { TextDocument } from 'vscode-languageserver-textdocument'
+import { Position, TextDocument } from 'vscode-languageserver-textdocument'
 import { YQLsLanguageService } from './service'
 
 const connection = createConnection(ProposedFeatures.all)
@@ -93,7 +93,20 @@ connection.onDefinition((request: DefinitionParams): Definition => {
 
 connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] => {
   connection.console.debug(`Connection::onDocumentFormatting ${request.textDocument.uri}`)
-  return []
+
+  const uri = request.textDocument.uri
+  const file = service.fileByUri(uri)
+  const formatted = file.formatted()
+
+  return [
+    {
+      range: {
+        start: { line: 0, character: 0 },
+        end: { line: Number.MAX_SAFE_INTEGER, character: 0 },
+      },
+      newText: formatted,
+    },
+  ]
 })
 
 documents.onDidOpen((e: TextDocumentChangeEvent<TextDocument>) => {
