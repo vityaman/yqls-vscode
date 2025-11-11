@@ -28,7 +28,7 @@ export function activate(context: ExtensionContext) {
     documentSelector: [
       {
         scheme: 'file',
-        language: 'plaintext',
+        language: 'yqls',
       },
     ],
   }

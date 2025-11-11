@@ -3,38 +3,46 @@
     "version": "0.0.1",
     "publisher": "vityaman",
     "engines": {
-		"vscode": "^1.100.0"
-	},
+        "vscode": "^1.100.0"
+    },
     "main": "./client/out/client",
     "activationEvents": [
-		"onLanguage:plaintext"
-	],
+        "onLanguage:plaintext"
+    ],
     "contributes": {
+        "languages": [
+            {
+                "id": "yqls",
+                "extensions": [
+                    ".yqls"
+                ]
+            }
+        ],
         "configuration": {
             "type": "object",
             "properties": {
                 "languageServerYQLs.option": {
                     "scope": "resource",
-					"type": "number",
-					"default": 100,
-					"description": "Just a number option."
+                    "type": "number",
+                    "default": 100,
+                    "description": "Just a number option."
                 }
             }
         }
     },
     "scripts": {
-		"postinstall": "(cd client && npm install) && (cd server && npm install)",
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -b",
-		"watch": "tsc -b -w",
-		"lint": "eslint"
-	},
+        "postinstall": "(cd client && npm install) && (cd server && npm install)",
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "lint": "eslint"
+    },
     "devDependencies": {
-		"@eslint/js": "^9.36.0",
-    	"@stylistic/eslint-plugin": "^5.4.0",
-		"@types/node": "^22",
-		"eslint": "^9.36.0",
-		"typescript": "^5.9.2",
-		"typescript-eslint": "^8.44.0"
-	}
+        "@eslint/js": "^9.36.0",
+        "@stylistic/eslint-plugin": "^5.4.0",
+        "@types/node": "^22",
+        "eslint": "^9.36.0",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.44.0"
+    }
 }
