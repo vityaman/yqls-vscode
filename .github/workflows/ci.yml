@@ -20,8 +20,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        npm ci -g node-addon-api
-        npm ci -g node-gyp
+        npm install -g node-addon-api
+        npm install -g node-gyp
         CXXFLAGS=-std=c++20 npm ci
 
     - name: Run linter
