@@ -49,6 +49,8 @@ connection.onInitialize((params: InitializeParams) => {
 })
 
 connection.onInitialized(() => {
+  documentation.initializeName()
+  connection.console.debug(`Documents names initialized...`)
   connection.console.debug(`Connection::onInitialized`)
 })
 
@@ -66,7 +68,13 @@ connection.onHover((request: HoverParams): Hover | undefined => {
   const uri = request.textDocument.uri
   const file = service.fileByUri(uri)
 
-  const name = file.nameAt(request.position)
+  const document = documents.get(uri)
+  if (!document) {
+    return undefined
+  }
+
+  const offset = document.offsetAt(request.position);
+  const name = file.nameAt(offset)
   if (!name) {
     return undefined
   }
@@ -77,7 +85,7 @@ connection.onHover((request: HoverParams): Hover | undefined => {
   }
 
   return {
-    contents: contents,
+    contents: `${contents}`,
   }
 })
 

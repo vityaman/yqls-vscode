@@ -18,6 +18,9 @@
 		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
+        "paths": {
+            "@assets/*": ["../assets/*"],
+        }
 	},
 	"include": [
 		"src",

@@ -1,5 +1,5 @@
 import Parser from 'tree-sitter'
-import { CompletionItem, CompletionItemKind, Position } from 'vscode-languageserver'
+import { CompletionItem, CompletionItemKind, Position} from 'vscode-languageserver'
 
 export class YQLsFile {
   #text: string
@@ -53,9 +53,17 @@ export class YQLsFile {
     ]
   }
 
-  nameAt(position: Position): string | undefined {
-    const line = position.line.toString()
-    const character = position.character.toString()
-    return `StubNameAtLine${line}Char${character}`
+  nameAt(offset: number): string | undefined {
+    let start = offset
+    while (start > 0 && /\w/.test(this.#text[start - 1])) {
+        start--
+    }
+
+    let end = offset
+    while (end < this.#text.length && /\w/.test(this.#text[end])) {
+        end++
+    }
+
+    return this.#text.substring(start, end);
   }
 }
