@@ -35,6 +35,6 @@
 			"problemMatcher": [
 				"$tsc-watch",
 			],
-		},
+		}
 	]
 }
