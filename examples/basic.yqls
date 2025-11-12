@@ -16,7 +16,7 @@
   (return $filtered)
 )))
 
-(let $result (block '(
+(Alet $result (block '(
   (let $aggregated (Aggregate $filtered_data
     '(('"uid" $user_id))
     '(
@@ -27,4 +27,5 @@
   (return $aggregated)
 )))
 
+(Udf Date)
 (Write! $output_table $result)

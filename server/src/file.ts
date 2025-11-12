@@ -1,5 +1,6 @@
 import callables from './asset/callables.json'
 import types from './asset/types.json'
+import udfs from './asset/udfs.json'
 
 import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
@@ -23,6 +24,14 @@ function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
   return less(node.startPosition, position) && less(position, { row: node.endPosition.row, column: node.endPosition.column + 1 })
 }
 
+interface Item {
+  name: string;
+}
+
+interface Data {
+  [key: string]: Item[];
+}
+
 export class YQLsFile {
   #text: string
   parseTree: Parser.Tree
@@ -30,10 +39,19 @@ export class YQLsFile {
 
   #callables = callables
   #types = types
+  #udfs: string[]
+
 
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
+
+    const data: Data = udfs as Data;
+
+    const result: string[] = Object.entries(data).flatMap(([category, items]) =>
+      items.map(item => `'${category}.${item.name}`)
+    );
+    this.#udfs = result
 
     console.log(callables)
     console.log(types)
@@ -48,7 +66,7 @@ export class YQLsFile {
     this.#text = text
     this.parseTree = parseTree
 
- if (parseTree.rootNode) {
+    if (parseTree.rootNode) {
       this.#symbolTable.buildFromTree(parseTree)
     }
     console.log("setText!!!")
@@ -62,7 +80,7 @@ export class YQLsFile {
   findNodeUnderPosition(position: Position): CursorPointsToListPosition {
     const treeWalker = this.parseTree.walk()
     let oldNode = treeWalker.currentNode
-    for (;;) {
+    for (; ;) {
       treeWalker.gotoFirstChildForPosition({ row: position.line, column: position.character })
       const start = treeWalker.startPosition
       const end = treeWalker.endPosition
@@ -85,7 +103,7 @@ export class YQLsFile {
     let containingList = oldNode
     let relativeIndex = -1
     let directSon = oldNode
-    for (;;) {
+    for (; ;) {
       const parent = containingList.parent
       if (parent?.type == 'list') {
         for (let i = 0; i < parent.childCount; ++i) {
@@ -145,8 +163,14 @@ export class YQLsFile {
       for (const callable of this.#callables) {
         result.push({ kind: CompletionItemKind.Function, label: callable.name })
       }
-      for (const callable of this.#types) {
-        result.push({ kind: CompletionItemKind.Class, label: callable.name })
+      for (const type of this.#types) {
+        result.push({ kind: CompletionItemKind.Class, label: type.name })
+      }
+    }
+    let isFirstUds = caretState.containining.child(1)?.text == "Udf"
+    if (!caretState.isInsideTheElement && caretState.childrenToTheLeft == 1 && isFirstUds) {
+      for (const udf of this.#udfs) {
+        result.push({ kind: CompletionItemKind.Function, label: udf })
       }
     }
 
