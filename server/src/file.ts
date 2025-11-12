@@ -14,7 +14,7 @@ export class YQLsFile {
     this.#text = text
     this.parseTree = parseTree
 
-    console.log("Parse tree: ${this.parseTree}!")
+    console.log('Parse tree: ${this.parseTree}!')
     console.log(this.parseTree.rootNode.toString())
   }
 

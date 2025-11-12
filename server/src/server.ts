@@ -132,15 +132,13 @@ connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] 
 documents.onDidOpen((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidOpen ${e.document.uri}`)
   service.setTextToFile(e.document.uri, e.document.getText())
-
 })
 
 documents.onDidChangeContent((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidChangeContent ${e.document.uri}`)
   // service.fileByUri(e.document.uri).setText(e.document.getText())
   service.setTextToFile(e.document.uri, e.document.getText())
-
-  connection.console.debug(`Updated parse tree: ${service.fileByUri(e.document.uri).parseTree}`)
+  // connection.console.debug(`Updated parse tree: ${service.fileByUri(e.document.uri).parseTree}`)
 })
 
 documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {

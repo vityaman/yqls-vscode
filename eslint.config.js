@@ -4,7 +4,7 @@ import stylistic from '@stylistic/eslint-plugin'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['out']),
+  globalIgnores(['out', '**/out/**']),
   {
     files: ['{client,server}/**/src/*.ts'],
     extends: [
