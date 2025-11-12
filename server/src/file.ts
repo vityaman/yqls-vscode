@@ -44,9 +44,8 @@ export class YQLsFile {
  if (parseTree.rootNode) {
       this.#symbolTable.buildFromTree(parseTree)
     }
-
-    console.log("Parse tree: ${this.parseTree}!")
-    console.log(this.parseTree.rootNode.toString())
+    console.log("setText!!!")
+    console.log(parseTree.rootNode.toString())
   }
 
   formatted(): string {

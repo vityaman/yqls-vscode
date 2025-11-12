@@ -72,8 +72,8 @@ connection.onHover((request: HoverParams): Hover | undefined => {
     return undefined
   }
 
-  const offset = document.offsetAt(request.position);
-  const name = file.nameAt(offset)
+  // const offset = document.offsetAt(request.position);
+  const name = file.nameAt(request.position)
   if (!name) {
     return undefined
   }

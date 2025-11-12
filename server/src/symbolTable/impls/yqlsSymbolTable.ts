@@ -96,6 +96,7 @@ export class YQLSSymbolTable implements SymbolTable {
   }
   
   updateDocument(uri: string, content: string): void {
+    void content
     this.documentUri = uri;
   }
   

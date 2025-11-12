@@ -9,7 +9,7 @@ export class SymbolCollector {
 
     constructor(
         private documentUri: string,
-        private rootScope: Scope
+        rootScope: Scope
     ) {
         this.currentScope = rootScope;
     }
@@ -60,7 +60,7 @@ export class SymbolCollector {
         const nameElement = elements[1];
         const nameIdent = this.getIdentFromElement(nameElement);
 
-        if (!nameIdent || !nameIdent.text.startsWith('$')) {
+        if (!nameIdent) {
             return;
         }
 
@@ -87,7 +87,7 @@ export class SymbolCollector {
 
         for (const element of elements) {
             const ident = this.getIdentFromElement(element);
-            if (ident && ident.text.startsWith('$')) {
+            if (ident) {
                 const symbol = this.findSymbolInScope(ident.text, this.currentScope);
                 if (symbol) {
                     const location = this.nodeToLocation(ident);
