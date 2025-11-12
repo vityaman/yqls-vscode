@@ -22,7 +22,6 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument'
 import { YQLsLanguageService } from './service'
 import { YQLsDocumentation } from './documentation'
-import { YQLsTreeSitter } from './tree-sitter'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
@@ -84,7 +83,7 @@ connection.onHover((request: HoverParams): Hover | undefined => {
 
 connection.onCompletion((request: TextDocumentPositionParams): CompletionItem[] => {
   connection.console.debug(`Connection::onCompletion ${request.textDocument.uri}`)
-
+  connection.console.log(`Connection::onCompletion ${request.textDocument.uri}`)
   const uri = request.textDocument.uri
   const file = service.fileByUri(uri)
   return file.candidatesAt(request.position)
@@ -132,17 +131,16 @@ connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] 
 
 documents.onDidOpen((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidOpen ${e.document.uri}`)
-  service.fileByUri(e.document.uri).setText(e.document.getText())
+  service.setTextToFile(e.document.uri, e.document.getText())
+
 })
 
 documents.onDidChangeContent((e: TextDocumentChangeEvent<TextDocument>) => {
   connection.console.debug(`documents::onDidChangeContent ${e.document.uri}`)
-  service.fileByUri(e.document.uri).setText(e.document.getText())
+  // service.fileByUri(e.document.uri).setText(e.document.getText())
+  service.setTextToFile(e.document.uri, e.document.getText())
 
-  // TODO(vityaman): remove, it is for demostration.
-  const ts = new YQLsTreeSitter()
-  const tree = ts.parse(e.document.getText())
-  connection.console.debug(`TreeSitter: ${tree.rootNode.toString()}`)
+  connection.console.debug(`Updated parse tree: ${service.fileByUri(e.document.uri).parseTree}`)
 })
 
 documents.onDidClose((e: TextDocumentChangeEvent<TextDocument>) => {

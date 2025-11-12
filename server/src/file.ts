@@ -1,14 +1,21 @@
+import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, Position } from 'vscode-languageserver'
 
 export class YQLsFile {
   #text: string
+  parseTree: Parser.Tree
 
-  constructor() {
-    this.#text = ''
+  constructor(text: string, parseTree: Parser.Tree) {
+    this.#text = text
+    this.parseTree = parseTree
   }
 
-  setText(text: string) {
+  setText(text: string, parseTree: Parser.Tree) {
     this.#text = text
+    this.parseTree = parseTree
+
+    console.log("Parse tree: ${this.parseTree}!")
+    console.log(this.parseTree.rootNode.toString())
   }
 
   formatted(): string {
