@@ -19,7 +19,11 @@
                 "extensions": [
                     ".yqls"
                 ],
-                "configuration": "./language-configuration.json"
+                "configuration": "./language-configuration.json",
+                "icon": {
+                    "dark": "./assets/y-dark.svg",
+                    "light": "./assets/y-light.svg"
+                }
             }
         ],
         "configuration": {
