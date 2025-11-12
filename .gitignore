@@ -4,3 +4,7 @@ node_modules/
 # TypeScript
 out/
 *.tsbuildinfo
+
+.vscode/settings.json
+
+build
