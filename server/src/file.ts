@@ -19,7 +19,6 @@ function less(left: Parser.Point, right: Parser.Point): boolean {
 function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
   return less(node.startPosition, position) && less(position, { row: node.endPosition.row, column: node.endPosition.column + 1 })
 }
-import { CompletionItem, CompletionItemKind, Position} from 'vscode-languageserver'
 
 export class YQLsFile {
   #text: string

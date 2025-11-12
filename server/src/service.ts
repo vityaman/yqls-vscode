@@ -86,15 +86,10 @@ export class YQLsLanguageService {
   }
 
   setTextToFile(uri: DocumentUri, text: string) {
-<<<<<<< HEAD
-    const file = this.fileByUri(uri)
-    file.setText(text, this.#parser.parse(text))
-=======
     let file = this.fileByUri(uri)
     let parseTree = this.#parser.parse(text)
     let exported = this.extractExportedSymbols(parseTree)
     void exported
     file.setText(text, parseTree)
->>>>>>> 32c6b0a (Autocomplete p1)
   }
 }
