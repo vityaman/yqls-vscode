@@ -7,6 +7,7 @@ export interface SymbolTable {
     addSymbol(symbol: Symbol): void;
     findSymbol(name: string, scope?: Scope): Symbol | undefined;
     findSymbolAtPosition(position: Position): Symbol | undefined;
+    findVisibleSymbolsAt(position: Position): Symbol[]
     enterScope(scopeType: ScopeType): void;
     exitScope(): void;
     getCurrentScope(): Scope;

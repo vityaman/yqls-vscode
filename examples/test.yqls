@@ -2,19 +2,20 @@
 (declare $another_var (DataType Int32))
 (declare $date_param (DataType Date))
 
-(Append let $result (block '(
-  (let $filtered (SelectRange 
+(let result (block '(
+  (let filtered (SelectRange 
     (DataSource '"//home/table")
     '("column1" "column2")
     (Filter (== (Member '"column1") $my_variable))
   ))
-  (return $filtered)
+  (return filtered)
 )))
 
-(let $output (AsList
+(letAlocal (AsList
   (AsStruct 
     '("var1" $my_variable)
     '("var2" $another_var)
     '("date" $date_param)
   )
 ))
+()

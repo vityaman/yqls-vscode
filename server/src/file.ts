@@ -1,6 +1,7 @@
 import callables from './asset/callables.json'
 import types from './asset/types.json'
 import udfs from './asset/udfs.json'
+import freqs from './asset/frequencies.json'
 
 import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
@@ -33,6 +34,10 @@ interface Data {
   [key: string]: Item[];
 }
 
+interface FrequenciesData {
+  [key: string]: number;
+}
+
 export class YQLsFile {
   #text: string
   parseTree: Parser.Tree
@@ -41,6 +46,7 @@ export class YQLsFile {
   #callables = callables
   #types = types
   #udfs: string[]
+  #freqs: Map<string, number> = new Map(Object.entries(freqs as FrequenciesData))
 
 
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
@@ -151,14 +157,33 @@ export class YQLsFile {
       }
     }
   }
+  numberToReverseOrderPreservingString(num: number): string {
+    const maxValue = 99999
+    const desiredLength = 5
+    const invertedNum = maxValue - num;
+    return "$$$" +  String(invertedNum).padStart(desiredLength, '0');
+  }
+  maxPriority = 9999
+
 
   candidatesAt(position: Position): CompletionItem[] {
-    const caretState = this.findNodeUnderPosition(position)
+    let localVars = this.#symbolTable.findVisibleSymbolsAt(position);
     const result: CompletionItem[] = [
       { kind: CompletionItemKind.Text, label: 'Text' },
     ]
+    for (let s of localVars) {
+      result.push({
+        kind: CompletionItemKind.Variable,
+        label: s.name,
+        sortText: this.numberToReverseOrderPreservingString(this.maxPriority)
+      })
+    }
+    const caretState = this.findNodeUnderPosition(position)
+
     if (caretState.childrenToTheLeft == 0) {
       for (const callable of this.#callables) {
+        let priority = 0
+        if (this.#freqs.has(callable))
         result.push({ kind: CompletionItemKind.Function, label: callable.name })
       }
       for (const type of this.#types) {

@@ -22,6 +22,14 @@ export class YQLSSymbolTable implements SymbolTable {
       }
     };
   }
+  findVisibleSymbolsAt(position: Position): Symbol[] {
+    void position
+    let result: Symbol[] = []
+    for (let x of this.globalScope.symbols.values()) {
+      result.push(x)
+    }
+    return result
+  }
 
   buildFromTree(tree: Parser.Tree): void {
     this.globalScope.symbols.clear();
