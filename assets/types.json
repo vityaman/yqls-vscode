@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Bool",
+        "kind": "Data"
+    },
+    {
+        "name": "Date",
+        "kind": "Data"
+    },
+    {
+        "name": "Date32",
+        "kind": "Data"
+    },
+    {
+        "name": "pginternal",
+        "kind": "Pg"
+    },
+    {
+        "name": "pginterval",
+        "kind": "Pg"
+    },
+    {
+        "name": "Void",
+        "kind": "Void"
+    }
+]
