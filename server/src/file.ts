@@ -158,12 +158,12 @@ export class YQLsFile {
     }
   }
   numberToReverseOrderPreservingString(num: number): string {
-    const maxValue = 99999
-    const desiredLength = 5
+    const maxValue = 999999
+    const desiredLength = 6
     const invertedNum = maxValue - num;
-    return "$$$" +  String(invertedNum).padStart(desiredLength, '0');
+    return "$$$" + String(invertedNum).padStart(desiredLength, '0');
   }
-  maxPriority = 9999
+  maxPriority = 99999
 
 
   candidatesAt(position: Position): CompletionItem[] {
@@ -183,11 +183,21 @@ export class YQLsFile {
     if (caretState.childrenToTheLeft == 0) {
       for (const callable of this.#callables) {
         let priority = 0
-        if (this.#freqs.has(callable))
-        result.push({ kind: CompletionItemKind.Function, label: callable.name })
+        if (this.#freqs.has(callable.name)) {
+          priority = this.#freqs.get(callable.name)!
+        }
+        result.push({
+          kind: CompletionItemKind.Function,
+          label: callable.name,
+          sortText: this.numberToReverseOrderPreservingString(priority)
+        })
       }
       for (const type of this.#types) {
-        result.push({ kind: CompletionItemKind.Class, label: type.name })
+        let priority = 0
+        if (this.#freqs.has(type.name)) {
+          priority = this.#freqs.get(type.name)!
+        }
+        result.push({ kind: CompletionItemKind.Class, label: type.name, sortText: this.numberToReverseOrderPreservingString(priority)})
       }
     }
     let isFirstUds = caretState.containining.child(1)?.text == "Udf"
