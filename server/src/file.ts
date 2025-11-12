@@ -157,7 +157,7 @@ export class YQLsFile {
     const result: CompletionItem[] = [
       { kind: CompletionItemKind.Text, label: 'Text' },
     ]
-    if (!caretState.isInsideTheElement && caretState.childrenToTheLeft == 0) {
+    if (caretState.childrenToTheLeft == 0) {
       for (const callable of this.#callables) {
         result.push({ kind: CompletionItemKind.Function, label: callable.name })
       }
@@ -166,7 +166,7 @@ export class YQLsFile {
       }
     }
     let isFirstUds = caretState.containining.child(1)?.text == "Udf"
-    if (!caretState.isInsideTheElement && caretState.childrenToTheLeft == 1 && isFirstUds) {
+    if (caretState.childrenToTheLeft == 1 && isFirstUds) {
       for (const udf of this.#udfs) {
         result.push({ kind: CompletionItemKind.Function, label: udf })
       }
