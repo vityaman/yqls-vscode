@@ -5,6 +5,7 @@
         "node": "*"
     },
     "dependencies": {
+        "@chrisoakman/standard-clojure-style": "^0.25.0",
         "tree-sitter-yqls": "file:../tree-sitter-yqls",
         "tree-sitter": "^0.25.0",
         "vscode-languageserver": "^9.0.1",

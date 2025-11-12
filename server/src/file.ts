@@ -5,6 +5,7 @@ import udfs from './asset/udfs.json'
 import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
 import { YQLSSymbolTable } from './symbolTable'
+import { formatClojure } from './format'
 
 interface CursorPointsToListPosition {
   containining: Parser.SyntaxNode
@@ -72,7 +73,14 @@ export class YQLsFile {
   }
 
   formatted(): string {
-    return this.#text + ' (formatted)'
+    console.log("formatted!!!")
+
+    const result = formatClojure(this.#text)
+    if (result.status != 'success') {
+      return this.#text
+    }
+
+    return result.out
   }
 
   findNodeUnderPosition(position: Position): CursorPointsToListPosition {
