@@ -1,20 +1,1994 @@
 [
     {
+        "name": "Abs"
+    },
+    {
+        "name": "Add"
+    },
+    {
+        "name": "AddMember"
+    },
+    {
+        "name": "AddMemberType"
+    },
+    {
+        "name": "AddTimezone"
+    },
+    {
+        "name": "AggApply"
+    },
+    {
+        "name": "AggApplyState"
+    },
+    {
+        "name": "AggOverState"
+    },
+    {
+        "name": "AggrAdd"
+    },
+    {
+        "name": "AggrConcat"
+    },
+    {
+        "name": "AggrCountInit"
+    },
+    {
+        "name": "AggrCountUpdate"
+    },
+    {
+        "name": "AggrEquals"
+    },
+    {
+        "name": "AggrGreater"
+    },
+    {
+        "name": "AggrGreaterOrEqual"
+    },
+    {
+        "name": "AggrLess"
+    },
+    {
+        "name": "AggrLessOrEqual"
+    },
+    {
+        "name": "AggrMax"
+    },
+    {
+        "name": "AggrMin"
+    },
+    {
+        "name": "AggrNotEquals"
+    },
+    {
+        "name": "Aggregate"
+    },
+    {
+        "name": "AggregateCombine"
+    },
+    {
+        "name": "AggregateCombineState"
+    },
+    {
+        "name": "AggregateFinalize"
+    },
+    {
+        "name": "AggregateMergeFinalize"
+    },
+    {
+        "name": "AggregateMergeManyFinalize"
+    },
+    {
+        "name": "AggregateMergeState"
+    },
+    {
+        "name": "AggregationTraits"
+    },
+    {
+        "name": "AlterTo"
+    },
+    {
+        "name": "And"
+    },
+    {
+        "name": "Append"
+    },
+    {
         "name": "Apply"
     },
     {
-        "name": "NamedApply"
+        "name": "AsDict"
     },
     {
-        "name": "Udf"
+        "name": "AsDictMayWarn"
+    },
+    {
+        "name": "AsEnum"
+    },
+    {
+        "name": "AsList"
+    },
+    {
+        "name": "AsListMayWarn"
+    },
+    {
+        "name": "AsOptionalType"
+    },
+    {
+        "name": "AsRange"
+    },
+    {
+        "name": "AsScalar"
+    },
+    {
+        "name": "AsSet"
+    },
+    {
+        "name": "AsSetMayWarn"
+    },
+    {
+        "name": "AsSetStrict"
+    },
+    {
+        "name": "AsStruct"
+    },
+    {
+        "name": "AsStructUnordered"
+    },
+    {
+        "name": "AsTagged"
+    },
+    {
+        "name": "AsVariant"
+    },
+    {
+        "name": "AssumeColumnOrder"
+    },
+    {
+        "name": "AssumeColumnOrderPartial"
+    },
+    {
+        "name": "AssumeDistinct"
+    },
+    {
+        "name": "AssumeDistinctHint"
+    },
+    {
+        "name": "AssumeNonStrict"
+    },
+    {
+        "name": "AssumeSorted"
+    },
+    {
+        "name": "AssumeStrict"
+    },
+    {
+        "name": "AssumeUnique"
+    },
+    {
+        "name": "AssumeUniqueHint"
+    },
+    {
+        "name": "AtomCode"
+    },
+    {
+        "name": "AuthTokens"
+    },
+    {
+        "name": "AutoDemux"
+    },
+    {
+        "name": "BitAnd"
+    },
+    {
+        "name": "BitCast"
+    },
+    {
+        "name": "BitNot"
+    },
+    {
+        "name": "BitOr"
+    },
+    {
+        "name": "BitXor"
+    },
+    {
+        "name": "Block"
+    },
+    {
+        "name": "BlockMapJoinCore"
+    },
+    {
+        "name": "BlockMapJoinIndex"
+    },
+    {
+        "name": "BlockStorage"
+    },
+    {
+        "name": "BlockType"
+    },
+    {
+        "name": "BuildTablePath"
+    },
+    {
+        "name": "ByteAt"
+    },
+    {
+        "name": "ByteString"
+    },
+    {
+        "name": "CalcOverSessionWindow"
+    },
+    {
+        "name": "CalcOverWindow"
+    },
+    {
+        "name": "CalcOverWindowGroup"
     },
     {
         "name": "Callable"
     },
     {
-        "name": "TypeOf"
+        "name": "CallableArgument"
+    },
+    {
+        "name": "CallableArgumentType"
+    },
+    {
+        "name": "CallableResultType"
+    },
+    {
+        "name": "CallableType"
+    },
+    {
+        "name": "CallableTypeComponents"
+    },
+    {
+        "name": "CallableTypeHandle"
+    },
+    {
+        "name": "Cast"
+    },
+    {
+        "name": "CheckedAdd"
+    },
+    {
+        "name": "CheckedDiv"
+    },
+    {
+        "name": "CheckedMinus"
+    },
+    {
+        "name": "CheckedMod"
+    },
+    {
+        "name": "CheckedMul"
+    },
+    {
+        "name": "CheckedSub"
+    },
+    {
+        "name": "Chopper"
+    },
+    {
+        "name": "Coalesce"
+    },
+    {
+        "name": "CoalesceMembers"
+    },
+    {
+        "name": "Collect"
+    },
+    {
+        "name": "CombineByKey"
+    },
+    {
+        "name": "CombineCore"
+    },
+    {
+        "name": "Commit"
+    },
+    {
+        "name": "CommitAll"
+    },
+    {
+        "name": "CommonJoinCore"
+    },
+    {
+        "name": "Concat"
+    },
+    {
+        "name": "Condense"
+    },
+    {
+        "name": "Condense1"
+    },
+    {
+        "name": "ConfRead"
+    },
+    {
+        "name": "Configure"
+    },
+    {
+        "name": "Cons"
+    },
+    {
+        "name": "ConstraintsOf"
+    },
+    {
+        "name": "Contains"
+    },
+    {
+        "name": "Convert"
+    },
+    {
+        "name": "CostsOf"
+    },
+    {
+        "name": "CountBits"
+    },
+    {
+        "name": "CumeDist"
+    },
+    {
+        "name": "CurrentAuthenticatedUser"
+    },
+    {
+        "name": "CurrentLanguageVersion"
+    },
+    {
+        "name": "CurrentOperationId"
+    },
+    {
+        "name": "CurrentOperationSharedId"
+    },
+    {
+        "name": "CurrentTzDate"
+    },
+    {
+        "name": "CurrentTzDatetime"
+    },
+    {
+        "name": "CurrentTzTimestamp"
+    },
+    {
+        "name": "CurrentUtcDate"
+    },
+    {
+        "name": "CurrentUtcDatetime"
+    },
+    {
+        "name": "CurrentUtcTimestamp"
+    },
+    {
+        "name": "DataSink"
+    },
+    {
+        "name": "DataSource"
     },
     {
         "name": "DataType"
+    },
+    {
+        "name": "DataTypeComponents"
+    },
+    {
+        "name": "DataTypeHandle"
+    },
+    {
+        "name": "Dec"
+    },
+    {
+        "name": "Decimal"
+    },
+    {
+        "name": "DecimalDiv"
+    },
+    {
+        "name": "DecimalMod"
+    },
+    {
+        "name": "DecimalMul"
+    },
+    {
+        "name": "Default"
+    },
+    {
+        "name": "Demux"
+    },
+    {
+        "name": "DenseRank"
+    },
+    {
+        "name": "DependsOn"
+    },
+    {
+        "name": "Dict"
+    },
+    {
+        "name": "DictFromKeys"
+    },
+    {
+        "name": "DictInsert"
+    },
+    {
+        "name": "DictItems"
+    },
+    {
+        "name": "DictKeyType"
+    },
+    {
+        "name": "DictKeys"
+    },
+    {
+        "name": "DictPayloadType"
+    },
+    {
+        "name": "DictPayloads"
+    },
+    {
+        "name": "DictRemove"
+    },
+    {
+        "name": "DictType"
+    },
+    {
+        "name": "DictTypeComponents"
+    },
+    {
+        "name": "DictTypeHandle"
+    },
+    {
+        "name": "DictUpdate"
+    },
+    {
+        "name": "DictUpsert"
+    },
+    {
+        "name": "Discard"
+    },
+    {
+        "name": "Div"
+    },
+    {
+        "name": "DivePrefixMembers"
+    },
+    {
+        "name": "DynamicLinearType"
+    },
+    {
+        "name": "DynamicLinearTypeHandle"
+    },
+    {
+        "name": "DynamicVariant"
+    },
+    {
+        "name": "EmptyDictType"
+    },
+    {
+        "name": "EmptyDictTypeHandle"
+    },
+    {
+        "name": "EmptyIterator"
+    },
+    {
+        "name": "EmptyListType"
+    },
+    {
+        "name": "EmptyListTypeHandle"
+    },
+    {
+        "name": "EndsWith"
+    },
+    {
+        "name": "Ensure"
+    },
+    {
+        "name": "EnsureConvertibleTo"
+    },
+    {
+        "name": "EnsurePersistable"
+    },
+    {
+        "name": "EnsureStrict"
+    },
+    {
+        "name": "EnsureTupleSize"
+    },
+    {
+        "name": "EnsureType"
+    },
+    {
+        "name": "EnsureWarn"
+    },
+    {
+        "name": "Enum"
+    },
+    {
+        "name": "Enumerate"
+    },
+    {
+        "name": "Equal"
+    },
+    {
+        "name": "EqualsIgnoreCase"
+    },
+    {
+        "name": "EquiJoin"
+    },
+    {
+        "name": "Error"
+    },
+    {
+        "name": "ErrorType"
+    },
+    {
+        "name": "EvaluateAtom"
+    },
+    {
+        "name": "EvaluateCode"
+    },
+    {
+        "name": "EvaluateExpr"
+    },
+    {
+        "name": "EvaluateExprIfPure"
+    },
+    {
+        "name": "EvaluateFor"
+    },
+    {
+        "name": "EvaluateIf"
+    },
+    {
+        "name": "EvaluateParallelFor"
+    },
+    {
+        "name": "EvaluateType"
+    },
+    {
+        "name": "Except"
+    },
+    {
+        "name": "ExceptAll"
+    },
+    {
+        "name": "ExceptAllPositional"
+    },
+    {
+        "name": "ExceptPositional"
+    },
+    {
+        "name": "Exists"
+    },
+    {
+        "name": "ExpandMap"
+    },
+    {
+        "name": "Extend"
+    },
+    {
+        "name": "ExtractMembers"
+    },
+    {
+        "name": "FailMe"
+    },
+    {
+        "name": "FileContent"
+    },
+    {
+        "name": "FilePath"
+    },
+    {
+        "name": "Files"
+    },
+    {
+        "name": "Filter"
+    },
+    {
+        "name": "FilterNullElements"
+    },
+    {
+        "name": "FilterNullMembers"
+    },
+    {
+        "name": "Find"
+    },
+    {
+        "name": "FlatListIf"
+    },
+    {
+        "name": "FlatMap"
+    },
+    {
+        "name": "FlatOptionalIf"
+    },
+    {
+        "name": "FlattenByColumns"
+    },
+    {
+        "name": "FlattenMembers"
+    },
+    {
+        "name": "FlattenMembersType"
+    },
+    {
+        "name": "FlattenStructs"
+    },
+    {
+        "name": "FlowType"
+    },
+    {
+        "name": "Fold"
+    },
+    {
+        "name": "Fold1"
+    },
+    {
+        "name": "Fold1Map"
+    },
+    {
+        "name": "FoldMap"
+    },
+    {
+        "name": "FolderPath"
+    },
+    {
+        "name": "For"
+    },
+    {
+        "name": "ForceRemoveMember"
+    },
+    {
+        "name": "ForceRemoveMemberType"
+    },
+    {
+        "name": "FormatCode"
+    },
+    {
+        "name": "FormatType"
+    },
+    {
+        "name": "FormatTypeDiff"
+    },
+    {
+        "name": "ForwardList"
+    },
+    {
+        "name": "FromBytes"
+    },
+    {
+        "name": "FromDynamicLinear"
+    },
+    {
+        "name": "FromFlow"
+    },
+    {
+        "name": "FromMutDict"
+    },
+    {
+        "name": "FromPg"
+    },
+    {
+        "name": "FromString"
+    },
+    {
+        "name": "FromYsonSimpleType"
+    },
+    {
+        "name": "FuncCode"
+    },
+    {
+        "name": "GenericType"
+    },
+    {
+        "name": "Greater"
+    },
+    {
+        "name": "GroupByKey"
+    },
+    {
+        "name": "Guess"
+    },
+    {
+        "name": "HasItems"
+    },
+    {
+        "name": "HasNull"
+    },
+    {
+        "name": "Head"
+    },
+    {
+        "name": "HoppingCore"
+    },
+    {
+        "name": "HoppingTraits"
+    },
+    {
+        "name": "If"
+    },
+    {
+        "name": "IfPresent"
+    },
+    {
+        "name": "IfType"
+    },
+    {
+        "name": "Inc"
+    },
+    {
+        "name": "InnerDependsOn"
+    },
+    {
+        "name": "Insert"
+    },
+    {
+        "name": "InstanceOf"
+    },
+    {
+        "name": "Intersect"
+    },
+    {
+        "name": "IntersectAll"
+    },
+    {
+        "name": "IntersectAllPositional"
+    },
+    {
+        "name": "IntersectPositional"
+    },
+    {
+        "name": "IsDistinctFrom"
+    },
+    {
+        "name": "IsKeySwitch"
+    },
+    {
+        "name": "IsNotDistinctFrom"
+    },
+    {
+        "name": "Iterable"
+    },
+    {
+        "name": "Iterator"
+    },
+    {
+        "name": "Join"
+    },
+    {
+        "name": "JsonExists"
+    },
+    {
+        "name": "JsonQuery"
+    },
+    {
+        "name": "JsonValue"
+    },
+    {
+        "name": "JsonVariables"
+    },
+    {
+        "name": "Just"
+    },
+    {
+        "name": "KeepTop"
+    },
+    {
+        "name": "Key"
+    },
+    {
+        "name": "LMap"
+    },
+    {
+        "name": "Lag"
+    },
+    {
+        "name": "LambdaArgumentsCount"
+    },
+    {
+        "name": "LambdaCode"
+    },
+    {
+        "name": "LambdaOptionalArgumentsCount"
+    },
+    {
+        "name": "Last"
+    },
+    {
+        "name": "LazyList"
+    },
+    {
+        "name": "Lead"
+    },
+    {
+        "name": "Left"
+    },
+    {
+        "name": "Length"
+    },
+    {
+        "name": "Likely"
+    },
+    {
+        "name": "LinearItemType"
+    },
+    {
+        "name": "LinearType"
+    },
+    {
+        "name": "LinearTypeHandle"
+    },
+    {
+        "name": "List"
+    },
+    {
+        "name": "ListAll"
+    },
+    {
+        "name": "ListAny"
+    },
+    {
+        "name": "ListAvg"
+    },
+    {
+        "name": "ListCode"
+    },
+    {
+        "name": "ListCollect"
+    },
+    {
+        "name": "ListConcat"
+    },
+    {
+        "name": "ListEnumerate"
+    },
+    {
+        "name": "ListExtend"
+    },
+    {
+        "name": "ListExtendStrict"
+    },
+    {
+        "name": "ListExtract"
+    },
+    {
+        "name": "ListFilter"
+    },
+    {
+        "name": "ListFlatMap"
+    },
+    {
+        "name": "ListFlatten"
+    },
+    {
+        "name": "ListFold"
+    },
+    {
+        "name": "ListFold1"
+    },
+    {
+        "name": "ListFold1Map"
+    },
+    {
+        "name": "ListFoldMap"
+    },
+    {
+        "name": "ListFromBlocks"
+    },
+    {
+        "name": "ListFromRange"
+    },
+    {
+        "name": "ListHas"
+    },
+    {
+        "name": "ListHead"
+    },
+    {
+        "name": "ListIf"
+    },
+    {
+        "name": "ListItemType"
+    },
+    {
+        "name": "ListLast"
+    },
+    {
+        "name": "ListMap"
+    },
+    {
+        "name": "ListMax"
+    },
+    {
+        "name": "ListMin"
+    },
+    {
+        "name": "ListNotNull"
+    },
+    {
+        "name": "ListReverse"
+    },
+    {
+        "name": "ListSample"
+    },
+    {
+        "name": "ListSampleN"
+    },
+    {
+        "name": "ListShuffle"
+    },
+    {
+        "name": "ListSkip"
+    },
+    {
+        "name": "ListSkipWhile"
+    },
+    {
+        "name": "ListSkipWhileInclusive"
+    },
+    {
+        "name": "ListSort"
+    },
+    {
+        "name": "ListSum"
+    },
+    {
+        "name": "ListTake"
+    },
+    {
+        "name": "ListTakeWhile"
+    },
+    {
+        "name": "ListTakeWhileInclusive"
+    },
+    {
+        "name": "ListToBlocks"
+    },
+    {
+        "name": "ListTop"
+    },
+    {
+        "name": "ListTopAsc"
+    },
+    {
+        "name": "ListTopDesc"
+    },
+    {
+        "name": "ListTopSort"
+    },
+    {
+        "name": "ListTopSortAsc"
+    },
+    {
+        "name": "ListTopSortDesc"
+    },
+    {
+        "name": "ListType"
+    },
+    {
+        "name": "ListTypeHandle"
+    },
+    {
+        "name": "ListUnionAll"
+    },
+    {
+        "name": "ListUniq"
+    },
+    {
+        "name": "ListUniqStable"
+    },
+    {
+        "name": "ListZip"
+    },
+    {
+        "name": "ListZipAll"
+    },
+    {
+        "name": "Lookup"
+    },
+    {
+        "name": "Map"
+    },
+    {
+        "name": "MapJoinCore"
+    },
+    {
+        "name": "MapNext"
+    },
+    {
+        "name": "MatchRecognize"
+    },
+    {
+        "name": "MatchRecognizeDefines"
+    },
+    {
+        "name": "MatchRecognizeMeasuresCallable"
+    },
+    {
+        "name": "MatchRecognizeMeasuresCallables"
+    },
+    {
+        "name": "MatchRecognizeParams"
+    },
+    {
+        "name": "MatchRecognizePattern"
+    },
+    {
+        "name": "MatchType"
+    },
+    {
+        "name": "Max"
+    },
+    {
+        "name": "Member"
+    },
+    {
+        "name": "Merge"
+    },
+    {
+        "name": "Min"
+    },
+    {
+        "name": "Minus"
+    },
+    {
+        "name": "Mod"
+    },
+    {
+        "name": "MrFolder"
+    },
+    {
+        "name": "MrPartitionList"
+    },
+    {
+        "name": "MrTableConcat"
+    },
+    {
+        "name": "MrTableEach"
+    },
+    {
+        "name": "MrTableEachStrict"
+    },
+    {
+        "name": "MrTableRange"
+    },
+    {
+        "name": "MrTableRangeStrict"
+    },
+    {
+        "name": "MultiAggregate"
+    },
+    {
+        "name": "MultiHoppingCore"
+    },
+    {
+        "name": "MultiMap"
+    },
+    {
+        "name": "MutDictContains"
+    },
+    {
+        "name": "MutDictCreate"
+    },
+    {
+        "name": "MutDictHasItems"
+    },
+    {
+        "name": "MutDictInsert"
+    },
+    {
+        "name": "MutDictItems"
+    },
+    {
+        "name": "MutDictKeys"
+    },
+    {
+        "name": "MutDictLength"
+    },
+    {
+        "name": "MutDictLookup"
+    },
+    {
+        "name": "MutDictPayloads"
+    },
+    {
+        "name": "MutDictPop"
+    },
+    {
+        "name": "MutDictRemove"
+    },
+    {
+        "name": "MutDictUpdate"
+    },
+    {
+        "name": "MutDictUpsert"
+    },
+    {
+        "name": "Mux"
+    },
+    {
+        "name": "NTile"
+    },
+    {
+        "name": "NamedApply"
+    },
+    {
+        "name": "Nanvl"
+    },
+    {
+        "name": "NarrowMap"
+    },
+    {
+        "name": "NarrowMultiMap"
+    },
+    {
+        "name": "NewMTRand"
+    },
+    {
+        "name": "NextMTRand"
+    },
+    {
+        "name": "NextMtRand"
+    },
+    {
+        "name": "Not"
+    },
+    {
+        "name": "Nothing"
+    },
+    {
+        "name": "Nth"
+    },
+    {
+        "name": "Null"
+    },
+    {
+        "name": "NullType"
+    },
+    {
+        "name": "NullTypeHandle"
+    },
+    {
+        "name": "Nvl"
+    },
+    {
+        "name": "Optional"
+    },
+    {
+        "name": "OptionalIf"
+    },
+    {
+        "name": "OptionalItemType"
+    },
+    {
+        "name": "OptionalReduce"
+    },
+    {
+        "name": "OptionalType"
+    },
+    {
+        "name": "OptionalTypeHandle"
+    },
+    {
+        "name": "Or"
+    },
+    {
+        "name": "OrderedExtend"
+    },
+    {
+        "name": "OrderedFilter"
+    },
+    {
+        "name": "OrderedFlatMap"
+    },
+    {
+        "name": "OrderedMap"
+    },
+    {
+        "name": "OrderedMultiMap"
+    },
+    {
+        "name": "OrderedSqlProject"
+    },
+    {
+        "name": "OrderedSqlRename"
+    },
+    {
+        "name": "ParseType"
+    },
+    {
+        "name": "ParseTypeHandle"
+    },
+    {
+        "name": "PartitionByKey"
+    },
+    {
+        "name": "PartitionsByKeys"
+    },
+    {
+        "name": "PercentRank"
+    },
+    {
+        "name": "PersistableRepr"
+    },
+    {
+        "name": "PgAgg"
+    },
+    {
+        "name": "PgAggWindowCall"
+    },
+    {
+        "name": "PgAggregationTraits"
+    },
+    {
+        "name": "PgAggregationTraitsTuple"
+    },
+    {
+        "name": "PgAllOp"
+    },
+    {
+        "name": "PgAllResolvedOp"
+    },
+    {
+        "name": "PgAnd"
+    },
+    {
+        "name": "PgAnonWindow"
+    },
+    {
+        "name": "PgAnyOp"
+    },
+    {
+        "name": "PgAnyResolvedOp"
+    },
+    {
+        "name": "PgArray"
+    },
+    {
+        "name": "PgBetween"
+    },
+    {
+        "name": "PgBetweenSym"
+    },
+    {
+        "name": "PgCall"
+    },
+    {
+        "name": "PgCast"
+    },
+    {
+        "name": "PgClone"
+    },
+    {
+        "name": "PgColumnRef"
+    },
+    {
+        "name": "PgConst"
+    },
+    {
+        "name": "PgGroup"
+    },
+    {
+        "name": "PgGrouping"
+    },
+    {
+        "name": "PgGroupingSet"
+    },
+    {
+        "name": "PgILike"
+    },
+    {
+        "name": "PgIn"
+    },
+    {
+        "name": "PgInternal0"
+    },
+    {
+        "name": "PgIsFalse"
+    },
+    {
+        "name": "PgIsTrue"
+    },
+    {
+        "name": "PgIsUnknown"
+    },
+    {
+        "name": "PgIterate"
+    },
+    {
+        "name": "PgIterateAll"
+    },
+    {
+        "name": "PgLike"
+    },
+    {
+        "name": "PgNot"
+    },
+    {
+        "name": "PgNullIf"
+    },
+    {
+        "name": "PgOp"
+    },
+    {
+        "name": "PgOr"
+    },
+    {
+        "name": "PgProjectionRef"
+    },
+    {
+        "name": "PgQualifiedStar"
+    },
+    {
+        "name": "PgResolvedCall"
+    },
+    {
+        "name": "PgResolvedCallCtx"
+    },
+    {
+        "name": "PgResolvedOp"
+    },
+    {
+        "name": "PgResultItem"
+    },
+    {
+        "name": "PgSelect"
+    },
+    {
+        "name": "PgSetItem"
+    },
+    {
+        "name": "PgSort"
+    },
+    {
+        "name": "PgStar"
+    },
+    {
+        "name": "PgSubLink"
+    },
+    {
+        "name": "PgTableContent"
+    },
+    {
+        "name": "PgToRecord"
+    },
+    {
+        "name": "PgType"
+    },
+    {
+        "name": "PgTypeHandle"
+    },
+    {
+        "name": "PgTypeMod"
+    },
+    {
+        "name": "PgTypeName"
+    },
+    {
+        "name": "PgValuesList"
+    },
+    {
+        "name": "PgWhere"
+    },
+    {
+        "name": "PgWindow"
+    },
+    {
+        "name": "PgWindowCall"
+    },
+    {
+        "name": "PgWindowTraits"
+    },
+    {
+        "name": "Pickle"
+    },
+    {
+        "name": "Plus"
+    },
+    {
+        "name": "Prepend"
+    },
+    {
+        "name": "PreserveStream"
+    },
+    {
+        "name": "PruneAdjacentKeys"
+    },
+    {
+        "name": "PruneKeys"
+    },
+    {
+        "name": "QueueCreate"
+    },
+    {
+        "name": "QueuePeek"
+    },
+    {
+        "name": "QueuePop"
+    },
+    {
+        "name": "QueuePush"
+    },
+    {
+        "name": "QueueRange"
+    },
+    {
+        "name": "QuoteCode"
+    },
+    {
+        "name": "RaiseError"
+    },
+    {
+        "name": "Random"
+    },
+    {
+        "name": "RandomNumber"
+    },
+    {
+        "name": "RangeComputeFor"
+    },
+    {
+        "name": "RangeFor"
+    },
+    {
+        "name": "RangeIntersect"
+    },
+    {
+        "name": "RangeMultiply"
+    },
+    {
+        "name": "RangeToPg"
+    },
+    {
+        "name": "RangeUnion"
+    },
+    {
+        "name": "Rank"
+    },
+    {
+        "name": "Read"
+    },
+    {
+        "name": "RemoveMember"
+    },
+    {
+        "name": "RemoveMemberType"
+    },
+    {
+        "name": "RemovePrefixMembers"
+    },
+    {
+        "name": "RemoveSystemMembers"
+    },
+    {
+        "name": "RemoveTimezone"
+    },
+    {
+        "name": "ReplaceMember"
+    },
+    {
+        "name": "Replicate"
+    },
+    {
+        "name": "ReplicateScalar"
+    },
+    {
+        "name": "ReplicateScalars"
+    },
+    {
+        "name": "ReprCode"
+    },
+    {
+        "name": "ResFill"
+    },
+    {
+        "name": "ResFor"
+    },
+    {
+        "name": "ResIf"
+    },
+    {
+        "name": "ResPull"
+    },
+    {
+        "name": "ResourceType"
+    },
+    {
+        "name": "ResourceTypeHandle"
+    },
+    {
+        "name": "ResourceTypeTag"
+    },
+    {
+        "name": "Result"
+    },
+    {
+        "name": "Reverse"
+    },
+    {
+        "name": "Right"
+    },
+    {
+        "name": "RotLeft"
+    },
+    {
+        "name": "RotRight"
+    },
+    {
+        "name": "RoundDown"
+    },
+    {
+        "name": "RoundUp"
+    },
+    {
+        "name": "RowNumber"
+    },
+    {
+        "name": "SafeCast"
+    },
+    {
+        "name": "ScalarType"
+    },
+    {
+        "name": "ScriptUdf"
+    },
+    {
+        "name": "SelectMembers"
+    },
+    {
+        "name": "Seq"
+    },
+    {
+        "name": "SerializeTypeHandle"
+    },
+    {
+        "name": "SessionWindowTraits"
+    },
+    {
+        "name": "ShiftLeft"
+    },
+    {
+        "name": "ShiftRight"
+    },
+    {
+        "name": "ShuffleByKeys"
+    },
+    {
+        "name": "SingleMember"
+    },
+    {
+        "name": "Size"
+    },
+    {
+        "name": "Skip"
+    },
+    {
+        "name": "SkipNullElements"
+    },
+    {
+        "name": "SkipNullMembers"
+    },
+    {
+        "name": "SkipWhile"
+    },
+    {
+        "name": "SkipWhileInclusive"
+    },
+    {
+        "name": "Sort"
+    },
+    {
+        "name": "SortTraits"
+    },
+    {
+        "name": "SqlAccess"
+    },
+    {
+        "name": "SqlAggregateAll"
+    },
+    {
+        "name": "SqlCall"
+    },
+    {
+        "name": "SqlColumn"
+    },
+    {
+        "name": "SqlColumnOrType"
+    },
+    {
+        "name": "SqlColumnOrderFromYson"
+    },
+    {
+        "name": "SqlExtractKey"
+    },
+    {
+        "name": "SqlIn"
+    },
+    {
+        "name": "SqlPlainColumnOrType"
+    },
+    {
+        "name": "SqlProcess"
+    },
+    {
+        "name": "SqlProject"
+    },
+    {
+        "name": "SqlProjectItem"
+    },
+    {
+        "name": "SqlProjectStarItem"
+    },
+    {
+        "name": "SqlReduce"
+    },
+    {
+        "name": "SqlReduceUdf"
+    },
+    {
+        "name": "SqlRename"
+    },
+    {
+        "name": "SqlTypeFromYson"
+    },
+    {
+        "name": "SqlVariantItem"
+    },
+    {
+        "name": "SqlVisit"
+    },
+    {
+        "name": "Squeeze"
+    },
+    {
+        "name": "Squeeze1"
+    },
+    {
+        "name": "SqueezeToList"
+    },
+    {
+        "name": "StablePickle"
+    },
+    {
+        "name": "StartsWith"
+    },
+    {
+        "name": "StartsWithIgnoreCase"
+    },
+    {
+        "name": "StaticFold"
+    },
+    {
+        "name": "StaticFold1"
+    },
+    {
+        "name": "StaticMap"
+    },
+    {
+        "name": "StaticZip"
+    },
+    {
+        "name": "StreamItemType"
+    },
+    {
+        "name": "StreamType"
+    },
+    {
+        "name": "StreamTypeHandle"
+    },
+    {
+        "name": "StrictCast"
+    },
+    {
+        "name": "StrictFromString"
+    },
+    {
+        "name": "StringContains"
+    },
+    {
+        "name": "Struct"
+    },
+    {
+        "name": "StructDifference"
+    },
+    {
+        "name": "StructIntersection"
+    },
+    {
+        "name": "StructMemberType"
+    },
+    {
+        "name": "StructSymmetricDifference"
+    },
+    {
+        "name": "StructType"
+    },
+    {
+        "name": "StructTypeComponents"
+    },
+    {
+        "name": "StructTypeHandle"
+    },
+    {
+        "name": "StructUnion"
+    },
+    {
+        "name": "Sub"
+    },
+    {
+        "name": "SubqueryAssumeOrderBy"
+    },
+    {
+        "name": "SubqueryExtend"
+    },
+    {
+        "name": "SubqueryExtendFor"
+    },
+    {
+        "name": "SubqueryMerge"
+    },
+    {
+        "name": "SubqueryMergeFor"
+    },
+    {
+        "name": "SubqueryOrderBy"
+    },
+    {
+        "name": "SubqueryUnionAll"
+    },
+    {
+        "name": "SubqueryUnionAllFor"
+    },
+    {
+        "name": "SubqueryUnionMerge"
+    },
+    {
+        "name": "SubqueryUnionMergeFor"
+    },
+    {
+        "name": "Substring"
+    },
+    {
+        "name": "Switch"
+    },
+    {
+        "name": "Sync"
+    },
+    {
+        "name": "TableName"
+    },
+    {
+        "name": "TablePath"
+    },
+    {
+        "name": "TableRecord"
+    },
+    {
+        "name": "TableSource"
+    },
+    {
+        "name": "TaggedType"
+    },
+    {
+        "name": "TaggedTypeComponents"
+    },
+    {
+        "name": "TaggedTypeHandle"
+    },
+    {
+        "name": "Take"
+    },
+    {
+        "name": "TakeWhile"
+    },
+    {
+        "name": "TakeWhileInclusive"
+    },
+    {
+        "name": "TempTable"
+    },
+    {
+        "name": "TimezoneId"
+    },
+    {
+        "name": "TimezoneName"
+    },
+    {
+        "name": "ToBytes"
+    },
+    {
+        "name": "ToDict"
+    },
+    {
+        "name": "ToDynamicLinear"
+    },
+    {
+        "name": "ToFlow"
+    },
+    {
+        "name": "ToIndexDict"
+    },
+    {
+        "name": "ToIntegral"
+    },
+    {
+        "name": "ToList"
+    },
+    {
+        "name": "ToMutDict"
+    },
+    {
+        "name": "ToOptional"
+    },
+    {
+        "name": "ToPg"
+    },
+    {
+        "name": "ToSequence"
+    },
+    {
+        "name": "ToStream"
+    },
+    {
+        "name": "ToString"
+    },
+    {
+        "name": "ToWindowTraits"
+    },
+    {
+        "name": "Top"
+    },
+    {
+        "name": "TopSort"
+    },
+    {
+        "name": "TryMember"
+    },
+    {
+        "name": "TryRemoveAllOptionals"
+    },
+    {
+        "name": "TryWeakMemberFromDict"
+    },
+    {
+        "name": "TupleElementType"
+    },
+    {
+        "name": "TupleType"
+    },
+    {
+        "name": "TupleTypeComponents"
+    },
+    {
+        "name": "TupleTypeHandle"
+    },
+    {
+        "name": "TypeHandle"
+    },
+    {
+        "name": "TypeKind"
+    },
+    {
+        "name": "TypeOf"
+    },
+    {
+        "name": "Udf"
+    },
+    {
+        "name": "Unessential"
+    },
+    {
+        "name": "Union"
+    },
+    {
+        "name": "UnionAll"
+    },
+    {
+        "name": "UnionAllPositional"
+    },
+    {
+        "name": "UnionMerge"
+    },
+    {
+        "name": "UnionPositional"
+    },
+    {
+        "name": "UnitType"
+    },
+    {
+        "name": "Unordered"
+    },
+    {
+        "name": "UnorderedSubquery"
+    },
+    {
+        "name": "Unpickle"
+    },
+    {
+        "name": "Untag"
+    },
+    {
+        "name": "Unwrap"
+    },
+    {
+        "name": "Utf8String"
+    },
+    {
+        "name": "Variant"
+    },
+    {
+        "name": "VariantItem"
+    },
+    {
+        "name": "VariantType"
+    },
+    {
+        "name": "VariantTypeHandle"
+    },
+    {
+        "name": "VariantUnderlyingType"
+    },
+    {
+        "name": "Version"
+    },
+    {
+        "name": "Visit"
+    },
+    {
+        "name": "VoidType"
+    },
+    {
+        "name": "VoidTypeHandle"
+    },
+    {
+        "name": "Way"
+    },
+    {
+        "name": "WeakField"
+    },
+    {
+        "name": "WideChopper"
+    },
+    {
+        "name": "WideFromBlocks"
+    },
+    {
+        "name": "WideMap"
+    },
+    {
+        "name": "WideSortBlocks"
+    },
+    {
+        "name": "WideToBlocks"
+    },
+    {
+        "name": "WinOnRows"
+    },
+    {
+        "name": "WindowTraits"
+    },
+    {
+        "name": "WithOptionalArgs"
+    },
+    {
+        "name": "WithSideEffectsMode"
+    },
+    {
+        "name": "WithWorld"
+    },
+    {
+        "name": "World"
+    },
+    {
+        "name": "Write"
+    },
+    {
+        "name": "Xor"
+    },
+    {
+        "name": "Zip"
+    },
+    {
+        "name": "ZipAll"
     }
 ]

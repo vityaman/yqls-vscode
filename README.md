@@ -38,3 +38,12 @@ To update frequencies:
 ```bash
 ./tool/sql2yql.py "$YDB_PATH" > ./server/src/asset/frequencies.json
 ```
+
+Then update callables:
+
+```bash
+./tool/fngen.py \
+    -f ./server/src/asset/frequencies.json \
+    -t ./server/src/asset/types.json \
+    -o ./server/src/asset/callables.json
+```
