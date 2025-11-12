@@ -1,0 +1,46 @@
+(declare $source_path (DataType String))
+(declare $destination_path (DataType String))
+(declare $filter_date (DataType Date))
+(declare $min_amount (DataType Double))
+(declare $max_amount (DataType Double))
+(declare $category_list (ListType (DataType String)))
+
+(let $filtered_data (block '(
+  (let $source (DataSource $source_path))
+  (let $filtered (Filter $source
+    (And
+      (>= (Member '"created_at") $filter_date)
+      (Between (Member '"amount") $min_amount $max_amount)
+      (In (Member '"category") $category_list)
+    )
+  ))
+  (return (SelectMembers $filtered '(
+    '"id"
+    '"name"
+    '"amount"
+    '"category"
+    '"created_at"
+  )))
+)))
+
+(let $aggregated (block '(
+  (let $grouped (Aggregate $filtered_data
+    '(('"category" (Member '"category")))
+    '(
+      ('"item_count" (Count))
+      ('"total_amount" (Sum (Member '"amount")))
+      ('"avg_amount" (Avg (Member '"amount")))
+      ('"min_amount" (Min (Member '"amount")))
+      ('"max_amount" (Max (Member '"amount")))
+    )
+  ))
+  (return $grouped)
+)))
+
+(let $final_result (block '(
+  (let $with_date (AddMember $aggregated '"report_date" $filter_date))
+  (let $sorted (Sort $with_date '(('"total_amount" (Bool '"false")))))
+  (return $sorted)
+)))
+
+(Write! $destination_path $final_result)

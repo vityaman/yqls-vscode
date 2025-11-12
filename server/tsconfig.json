@@ -9,13 +9,10 @@
 		"sourceMap": true,
 		"outDir": "out",
 		"rootDir": "src",
-
 		"esModuleInterop": true,
-
 		"strict": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"erasableSyntaxOnly": true,
 		"noFallthroughCasesInSwitch": true,
 		"noUncheckedSideEffectImports": true,
         "paths": {
@@ -24,6 +21,7 @@
 	},
 	"include": [
 		"src",
+		"src/symbolTable"
 	],
 	"exclude": [
 		"node_modules",

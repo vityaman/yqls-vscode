@@ -1,0 +1,30 @@
+(declare $input_table (DataType String))
+(declare $output_table (DataType String))
+(declare $start_date (DataType Date))
+(declare $end_date (DataType Date))
+(declare $user_id (DataType Int64))
+
+(let $filtered_data (block '(
+  (let $source (DataSource $input_table))
+  (let $filtered (Filter $source 
+    (And
+      (== (Member '"user_id") $user_id)
+      (>= (Member '"created_at") $start_date)
+      (<= (Member '"created_at") $end_date)
+    )
+  ))
+  (return $filtered)
+)))
+
+(let $result (block '(
+  (let $aggregated (Aggregate $filtered_data
+    '(('"uid" $user_id))
+    '(
+      ('"total_count" (Count))
+      ('"total_amount" (Sum (Member '"amount")))
+    )
+  ))
+  (return $aggregated)
+)))
+
+(Write! $output_table $result)

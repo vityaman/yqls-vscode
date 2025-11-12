@@ -10,7 +10,6 @@ import {
   Hover,
   HoverParams,
   InitializeParams,
-  Location,
   ProposedFeatures,
   TextDocumentChangeEvent,
   TextDocumentPositionParams,
@@ -73,8 +72,8 @@ connection.onHover((request: HoverParams): Hover | undefined => {
     return undefined
   }
 
-  const offset = document.offsetAt(request.position);
-  const name = file.nameAt(offset)
+  // const offset = document.offsetAt(request.position);
+  const name = file.nameAt(request.position)
   if (!name) {
     return undefined
   }
@@ -101,7 +100,7 @@ connection.onCompletionResolve((request: CompletionItem): CompletionItem => {
   return request
 })
 
-connection.onDefinition((request: DefinitionParams): Definition => {
+connection.onDefinition((request: DefinitionParams): Definition | undefined => {
   connection.console.debug(
     `Connection::onDefinition `
     + `${request.textDocument.uri} `
@@ -109,13 +108,16 @@ connection.onDefinition((request: DefinitionParams): Definition => {
     + `:${request.position.character.toString()}`,
   )
 
-  return {
-    uri: request.textDocument.uri,
-    range: {
-      start: { line: 0, character: 0 },
-      end: { line: 0, character: 0 },
-    },
-  } satisfies Location
+  const uri = request.textDocument.uri
+  const file = service.fileByUri(uri)
+
+  const symbol = file.symbolAt(request.position)
+
+  if (symbol) {
+    return symbol.location
+  }
+
+  return undefined
 })
 
 connection.onDocumentFormatting((request: DocumentFormattingParams): TextEdit[] => {

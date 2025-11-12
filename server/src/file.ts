@@ -1,5 +1,6 @@
 import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
+import { YQLSSymbolTable } from './symbolTable'
 
 interface CursorPointsToListPosition {
   containining: Parser.SyntaxNode
@@ -23,19 +24,27 @@ function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
 export class YQLsFile {
   #text: string
   parseTree: Parser.Tree
+  #symbolTable: YQLSSymbolTable
 
-  constructor(text: string, parseTree: Parser.Tree) {
+  constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
+    this.#symbolTable = new YQLSSymbolTable(uri)
+
+    if (parseTree.rootNode) {
+      this.#symbolTable.buildFromTree(parseTree)
+    }
   }
 
   setText(text: string, parseTree: Parser.Tree) {
     this.#text = text
     this.parseTree = parseTree
 
-    console.log('Parse tree: ${this.parseTree}!')
-    console.log('Parse tree: ${this.parseTree}!')
-    console.log(this.parseTree.rootNode.toString())
+ if (parseTree.rootNode) {
+      this.#symbolTable.buildFromTree(parseTree)
+    }
+    console.log("setText!!!")
+    console.log(parseTree.rootNode.toString())
   }
 
   formatted(): string {
@@ -131,17 +140,20 @@ export class YQLsFile {
     return result
   }
 
-  nameAt(offset: number): string | undefined {
-    let start = offset
-    while (start > 0 && /\w/.test(this.#text[start - 1])) {
-        start--
+  nameAt(position: Position): string | undefined {
+    const node = this.parseTree.rootNode.descendantForPosition({
+      row: position.line,
+      column: position.character
+    })
+
+    if (node && node.type === 'identifier') {
+      return node.text
     }
 
-    let end = offset
-    while (end < this.#text.length && /\w/.test(this.#text[end])) {
-        end++
-    }
+    return undefined
+  }
 
-    return this.#text.substring(start, end);
+  symbolAt(position: Position) {
+    return this.#symbolTable.findSymbolAtPosition(position)
   }
 }
