@@ -2,10 +2,9 @@
 
 import subprocess
 import os
-import io
 import re
 from argparse import ArgumentParser
-from typing import Any, Generator, Iterable
+from typing import Any, Iterable
 from collections import Counter
 from itertools import chain
 import json
