@@ -1,5 +1,6 @@
 import { Range } from "vscode-languageserver";
 import { ScopeType } from "./models/scopeType";
+import { Symbol } from "./symbol";
 
 export interface Scope {
     type: ScopeType;

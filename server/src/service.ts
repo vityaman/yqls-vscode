@@ -12,7 +12,7 @@ export class YQLsLanguageService {
 
   fileByUri(uri: DocumentUri): YQLsFile {
     if (!this.#filesByUri.has(uri)) {
-      this.#filesByUri.set(uri, new YQLsFile('', this.#parser.parse('')))
+      this.#filesByUri.set(uri, new YQLsFile("", this.#parser.parse(""), uri))
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

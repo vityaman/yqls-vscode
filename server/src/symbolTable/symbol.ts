@@ -1,5 +1,6 @@
-import { Location, SymbolKind } from "vscode-languageserver";
+import { Location } from "vscode-languageserver";
 import { Scope } from "./scope";
+import { SymbolKind } from "./models/symbolKind";
 
 export interface Symbol {
     name: string;

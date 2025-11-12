@@ -1,6 +1,7 @@
 import { Location, Position } from 'vscode-languageserver';
 import { ScopeType } from './models/scopeType';
 import { Scope } from './scope';
+import { Symbol } from './symbol';
 
 export interface SymbolTable {
     addSymbol(symbol: Symbol): void;
