@@ -30,11 +30,11 @@ To pull JSONs from YDB repository:
 To update documentation JSON from the markdown:
 
 ```bash
-cat ./tool/md2doc.md | ./tool/md2doc.py > ./assets/docs.json
+cat ./tool/md2doc.md | ./tool/md2doc.py > ./server/src/asset/docs.json
 ```
 
 To update frequencies:
 
 ```bash
-./tool/sql2yql.py "$YDB_PATH" > ./assets/frequencies.json
+./tool/sql2yql.py "$YDB_PATH" > ./server/src/asset/frequencies.json
 ```

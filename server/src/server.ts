@@ -84,7 +84,7 @@ connection.onHover((request: HoverParams): Hover | undefined => {
   }
 
   return {
-    contents: `${contents}`,
+    contents: contents,
   }
 })
 

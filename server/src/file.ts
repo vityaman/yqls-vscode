@@ -1,3 +1,6 @@
+import callables from './asset/callables.json'
+import types from './asset/types.json'
+
 import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
 import { YQLSSymbolTable } from './symbolTable'
@@ -9,12 +12,11 @@ interface CursorPointsToListPosition {
   elementPastPosition: Parser.SyntaxNode
 }
 
-
 function less(left: Parser.Point, right: Parser.Point): boolean {
   if (left.row != right.row) {
     return left.row < right.row
   }
-  return left.column < right.column;
+  return left.column < right.column
 }
 
 function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
@@ -26,11 +28,17 @@ export class YQLsFile {
   parseTree: Parser.Tree
   #symbolTable: YQLSSymbolTable
 
+  #callables = callables
+  #types = types
+
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
-    this.#symbolTable = new YQLSSymbolTable(uri)
 
+    console.log(callables)
+    console.log(types)
+
+    this.#symbolTable = new YQLSSymbolTable(uri)
     if (parseTree.rootNode) {
       this.#symbolTable.buildFromTree(parseTree)
     }
@@ -52,15 +60,19 @@ export class YQLsFile {
   }
 
   findNodeUnderPosition(position: Position): CursorPointsToListPosition {
-    let treeWalker = this.parseTree.walk()
-    var oldNode = treeWalker.currentNode
-    while (true) {
+    const treeWalker = this.parseTree.walk()
+    let oldNode = treeWalker.currentNode
+    for (;;) {
       treeWalker.gotoFirstChildForPosition({ row: position.line, column: position.character })
-      let start = treeWalker.startPosition
-      let end = treeWalker.endPosition
-      console.log(`cur position: ${start.row + 1}:${start.column + 1} to ${end.row + 1}:${end.column + 1} `)
-      var newNode = treeWalker.currentNode
-      let cond = newNode.type == oldNode.type
+      const start = treeWalker.startPosition
+      const end = treeWalker.endPosition
+      console.log(
+        `cur position: `
+        + `${(start.row + 1).toString()}:${(start.column + 1).toString()} to`
+        + `${(end.row + 1).toString()}:${(end.column + 1).toString()}`,
+      )
+      const newNode = treeWalker.currentNode
+      const cond = newNode.type == oldNode.type
         && newNode.startPosition.row == oldNode.startPosition.row
         && newNode.startPosition.column == oldNode.startPosition.column
         && newNode.endPosition.row == oldNode.endPosition.row
@@ -70,14 +82,15 @@ export class YQLsFile {
       }
       oldNode = newNode
     }
-    var containingList = oldNode
-    var relativeIndex = -1
-    var directSon = oldNode
-    while (true) {
-      let parent = containingList.parent
-      if (parent != null && parent.type == 'list') {
-        for (var i = 0; i < parent.childCount; ++i) {
-          let child = parent.child(i)!;
+    let containingList = oldNode
+    let relativeIndex = -1
+    let directSon = oldNode
+    for (;;) {
+      const parent = containingList.parent
+      if (parent?.type == 'list') {
+        for (let i = 0; i < parent.childCount; ++i) {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          const child = parent.child(i)!
           if (child.startPosition.row == containingList.startPosition.row
             && child.startPosition.column == containingList.startPosition.column) {
             relativeIndex = i
@@ -87,53 +100,53 @@ export class YQLsFile {
           }
         }
         break
-      } else if (parent != null) {
+      }
+      else if (parent != null) {
         containingList = parent
       }
     }
-    let isInsideElement = isIndexAtWord({ row: position.line, column: position.character }, directSon)
+    const isInsideElement = isIndexAtWord({ row: position.line, column: position.character }, directSon)
     if (isInsideElement) {
       return {
         containining: containingList,
         childrenToTheLeft: relativeIndex - 1, // -1 to exclude the left brace
         isInsideTheElement: true,
-        elementPastPosition: directSon
+        elementPastPosition: directSon,
       }
-    } else {
-      let prevSibling = directSon.previousSibling;
-      if (prevSibling != null && prevSibling.type != "(" && isIndexAtWord({ row: position.line, column: position.character }, prevSibling)) {
+    }
+    else {
+      const prevSibling = directSon.previousSibling
+      if (prevSibling != null && prevSibling.type != '(' && isIndexAtWord({ row: position.line, column: position.character }, prevSibling)) {
         return {
           containining: containingList,
           childrenToTheLeft: relativeIndex - 1 - 1, // -1 to exclude the left brace
           isInsideTheElement: true,
-          elementPastPosition: prevSibling
+          elementPastPosition: prevSibling,
         }
-      } else {
+      }
+      else {
         return {
           containining: containingList,
           childrenToTheLeft: relativeIndex - 1, // -1 to exclude the left brace
           isInsideTheElement: false,
-          elementPastPosition: directSon
+          elementPastPosition: directSon,
         }
       }
     }
   }
 
-  #callables = [ "Apply", "NamedApply", "Udf", "Callable", "TypeOf", "DataType" ]
-  #types = [ "Bool", "Data", "Date32", "pginternal", "pginterval", "Void"]
-
   candidatesAt(position: Position): CompletionItem[] {
-    let caretState = this.findNodeUnderPosition(position)
+    const caretState = this.findNodeUnderPosition(position)
     // console.log(`position:${position.line}:${position.character}\nmatchlist=${result.containining.text}\ndirectson=${result.elementPastPosition.text}\ndirectsonpos=${result.elementPastPosition.startPosition.row}:${result.elementPastPosition.startPosition.column}\nindex=${result.childrenToTheLeft}\nisInside${result.isInsideTheElement}`)
-    let result: CompletionItem[] = [
+    const result: CompletionItem[] = [
       { kind: CompletionItemKind.Text, label: 'Text' },
     ]
     if (!caretState.isInsideTheElement && caretState.childrenToTheLeft == 0) {
-      for (let callable of this.#callables) {
-        result.push({ kind: CompletionItemKind.Function, label: callable })
+      for (const callable of this.#callables) {
+        result.push({ kind: CompletionItemKind.Function, label: callable.name })
       }
-      for (let callable of this.#types) {
-        result.push({ kind: CompletionItemKind.Class, label: callable })
+      for (const callable of this.#types) {
+        result.push({ kind: CompletionItemKind.Class, label: callable.name })
       }
     }
 

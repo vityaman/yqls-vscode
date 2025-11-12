@@ -13,6 +13,7 @@ export class YQLsLanguageService {
   #filesByUri: Map<DocumentUri, YQLsFile>
   #parser: YQLsTreeSitter
   exportedSymbols: string[]
+
   constructor() {
     this.#filesByUri = new Map()
     this.#parser = new YQLsTreeSitter()
@@ -33,51 +34,51 @@ export class YQLsLanguageService {
   }
 
   unwrapElemAtomIdent(node: Parser.SyntaxNode): string | null {
-    if (node.type != "element") {
+    if (node.type != 'element') {
       return null
     }
-    let atom = node.child(0)
-    if (atom == null || atom.type != "atom") {
+    const atom = node.child(0)
+    if (atom?.type != 'atom') {
       return null
     }
-    let ident = atom.child(0)
-    if (ident == null || ident.type != "ident") {
+    const ident = atom.child(0)
+    if (ident?.type != 'ident') {
       return null
     }
     return ident.text
   }
 
-
-
   isExportNode(node: Parser.SyntaxNode): ExportNode | null {
-    if (node.type != "list" || node.childCount != 4) {
+    if (node.type != 'list' || node.childCount != 4) {
       return null
     }
-    let potentialExport = this.unwrapElemAtomIdent(node.child(1)!)
-    let potentialSymbol = this.unwrapElemAtomIdent(node.child(2)!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const potentialExport = this.unwrapElemAtomIdent(node.child(1)!)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const potentialSymbol = this.unwrapElemAtomIdent(node.child(2)!)
     if (potentialExport != null && potentialSymbol != null) {
       console.log(`export=${potentialExport} symbol = ${potentialSymbol}`)
     }
     return null
   }
 
-
   extractExportedSymbols(tree: Parser.Tree): ExportNode[] {
-    let sourceFile = tree.rootNode
-    let decls = sourceFile.child(0);
+    const sourceFile = tree.rootNode
+    const decls = sourceFile.child(0)
     if (decls == null) {
       return []
     }
-    let result: ExportNode[] = []
-    for (var elementDecl of decls.children) {
-      if (elementDecl.type != "element")
+    const result: ExportNode[] = []
+    for (const elementDecl of decls.children) {
+      if (elementDecl.type != 'element')
         continue
       // we assume that at this level there are only lists as elements
       console.log(elementDecl.text)
 
       assert(elementDecl.childCount == 1)
-      let listDecl = elementDecl.child(0)!
-      let exportNode = this.isExportNode(listDecl)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const listDecl = elementDecl.child(0)!
+      const exportNode = this.isExportNode(listDecl)
       if (exportNode != null) {
         result.push(exportNode)
       }
@@ -86,9 +87,9 @@ export class YQLsLanguageService {
   }
 
   setTextToFile(uri: DocumentUri, text: string) {
-    let file = this.fileByUri(uri)
-    let parseTree = this.#parser.parse(text)
-    let exported = this.extractExportedSymbols(parseTree)
+    const file = this.fileByUri(uri)
+    const parseTree = this.#parser.parse(text)
+    const exported = this.extractExportedSymbols(parseTree)
     void exported
     file.setText(text, parseTree)
   }
