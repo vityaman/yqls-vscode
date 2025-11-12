@@ -2,6 +2,10 @@
     "name": "yqls-vscode",
     "version": "0.0.1",
     "publisher": "vityaman",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/vityaman/yqls-vscode.git"
+    },
     "engines": {
         "vscode": "^1.100.0"
     },
@@ -63,6 +67,7 @@
     "dependencies": {
         "@chrisoakman/standard-clojure-style": "^0.25.0",
         "node-addon-api": "^8.5.0",
-        "node-gyp-build": "^4.8.4"
+        "node-gyp-build": "^4.8.4",
+        "tree-sitter-yqls": "file:tree-sitter-yqls"
     }
 }
