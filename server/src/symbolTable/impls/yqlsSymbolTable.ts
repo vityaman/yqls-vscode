@@ -43,7 +43,7 @@ export class YQLSSymbolTable implements SymbolTable {
   findSymbolAtPosition(position: Position): Symbol | undefined {
     const scope = this.findScopeAtPosition(position, this.globalScope);
     
-    for (const [name, symbol] of scope.symbols) {
+    for (const [_, symbol] of scope.symbols) {
       if (this.isPositionInRange(position, symbol.location.range)) {
         return symbol;
       }

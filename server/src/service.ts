@@ -57,7 +57,7 @@ export class YQLsLanguageService {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const potentialSymbol = this.unwrapElemAtomIdent(node.child(2)!)
     if (potentialExport != null && potentialSymbol != null) {
-      console.log(`export=${potentialExport} symbol = ${potentialSymbol}`)
+    //   console.log(`export=${potentialExport} symbol = ${potentialSymbol}`)
     }
     return null
   }
@@ -73,7 +73,7 @@ export class YQLsLanguageService {
       if (elementDecl.type != 'element')
         continue
       // we assume that at this level there are only lists as elements
-      console.log(elementDecl.text)
+    //   console.log(elementDecl.text)
 
       assert(elementDecl.childCount == 1)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

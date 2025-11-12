@@ -1,4 +1,4 @@
-import callables from './asset/docs.json'
+import docs from './asset/docs.json'
 
 export class YQLsDocumentation {
   #name2description: Map<string, string>
@@ -8,7 +8,7 @@ export class YQLsDocumentation {
   }
 
   loadJson(): object {
-    return callables
+    return docs
   }
 
   initializeName() {

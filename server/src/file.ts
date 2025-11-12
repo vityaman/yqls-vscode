@@ -69,8 +69,6 @@ export class YQLsFile {
     if (parseTree.rootNode) {
       this.#symbolTable.buildFromTree(parseTree)
     }
-    console.log("setText!!!")
-    console.log(parseTree.rootNode.toString())
   }
 
   formatted(): string {
@@ -82,13 +80,6 @@ export class YQLsFile {
     let oldNode = treeWalker.currentNode
     for (; ;) {
       treeWalker.gotoFirstChildForPosition({ row: position.line, column: position.character })
-      const start = treeWalker.startPosition
-      const end = treeWalker.endPosition
-      console.log(
-        `cur position: `
-        + `${(start.row + 1).toString()}:${(start.column + 1).toString()} to`
-        + `${(end.row + 1).toString()}:${(end.column + 1).toString()}`,
-      )
       const newNode = treeWalker.currentNode
       const cond = newNode.type == oldNode.type
         && newNode.startPosition.row == oldNode.startPosition.row
@@ -155,7 +146,6 @@ export class YQLsFile {
 
   candidatesAt(position: Position): CompletionItem[] {
     const caretState = this.findNodeUnderPosition(position)
-    // console.log(`position:${position.line}:${position.character}\nmatchlist=${result.containining.text}\ndirectson=${result.elementPastPosition.text}\ndirectsonpos=${result.elementPastPosition.startPosition.row}:${result.elementPastPosition.startPosition.column}\nindex=${result.childrenToTheLeft}\nisInside${result.isInsideTheElement}`)
     const result: CompletionItem[] = [
       { kind: CompletionItemKind.Text, label: 'Text' },
     ]
@@ -182,8 +172,7 @@ export class YQLsFile {
       row: position.line,
       column: position.character
     })
-
-    if (node && node.type === 'identifier') {
+    if (node) {
       return node.text
     }
 
