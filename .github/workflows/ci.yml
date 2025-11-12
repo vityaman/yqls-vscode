@@ -20,6 +20,7 @@ jobs:
 
     - name: Install dependencies
       run: |
+        npm config set loglevel verbose
         CXXFLAGS=-std=c++20 npm ci
 
     - name: Run linter
