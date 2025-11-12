@@ -90,7 +90,6 @@ connection.onHover((request: HoverParams): Hover | undefined => {
 
 connection.onCompletion((request: TextDocumentPositionParams): CompletionItem[] => {
   connection.console.debug(`Connection::onCompletion ${request.textDocument.uri}`)
-  connection.console.log(`Connection::onCompletion ${request.textDocument.uri}`)
   const uri = request.textDocument.uri
   const file = service.fileByUri(uri)
   return file.candidatesAt(request.position)

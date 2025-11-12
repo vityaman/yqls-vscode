@@ -31,6 +31,9 @@ export function activate(context: ExtensionContext) {
         language: 'yqls',
       },
     ],
+    initializationOptions: {
+      assetsPath: context.extensionPath
+    }
   }
 
   client = new LanguageClient(
