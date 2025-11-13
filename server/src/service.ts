@@ -1,7 +1,7 @@
 import { DiagnosticSeverity, DocumentUri } from 'vscode-languageserver'
 import { YQLsFile } from './file'
 import { YQLsTreeSitter } from './tree-sitter'
-import Parser from 'tree-sitter'
+import TreeSitter from 'web-tree-sitter'
 import { assert } from 'console'
 import { YQLsIssue } from './issue'
 import { YQLsConfig } from './config'
@@ -9,7 +9,7 @@ import { YQLsMinirun } from './minirun'
 
 interface ExportNode {
   ident: string
-  origNode: Parser.SyntaxNode
+  origNode: TreeSitter.Node
 }
 
 export class YQLsLanguageService {
@@ -42,7 +42,7 @@ export class YQLsLanguageService {
     this.#filesByUri.delete(uri)
   }
 
-  unwrapElemAtomIdent(node: Parser.SyntaxNode): string | null {
+  unwrapElemAtomIdent(node: TreeSitter.Node): string | null {
     if (node.type != 'element') {
       return null
     }
@@ -57,7 +57,7 @@ export class YQLsLanguageService {
     return ident.text
   }
 
-  isExportNode(node: Parser.SyntaxNode): ExportNode | null {
+  isExportNode(node: TreeSitter.Node): ExportNode | null {
     if (node.type != 'list' || node.childCount != 4) {
       return null
     }
@@ -71,7 +71,7 @@ export class YQLsLanguageService {
     return null
   }
 
-  extractExportedSymbols(tree: Parser.Tree): ExportNode[] {
+  extractExportedSymbols(tree: TreeSitter.Tree): ExportNode[] {
     const sourceFile = tree.rootNode
     const decls = sourceFile.child(0)
     if (decls == null) {
@@ -79,7 +79,7 @@ export class YQLsLanguageService {
     }
     const result: ExportNode[] = []
     for (const elementDecl of decls.children) {
-      if (elementDecl.type != 'element')
+      if (elementDecl?.type != 'element')
         continue
       // we assume that at this level there are only lists as elements
       //   console.log(elementDecl.text)

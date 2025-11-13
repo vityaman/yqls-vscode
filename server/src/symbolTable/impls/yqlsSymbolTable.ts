@@ -1,5 +1,5 @@
 import { Position, Location, Range } from 'vscode-languageserver';
-import Parser from 'tree-sitter';
+import TreeSitter from 'web-tree-sitter';
 import { SymbolTable } from '../symbolTable';
 import { Symbol } from '../symbol';
 import { Scope } from '../scope';
@@ -31,7 +31,7 @@ export class YQLSSymbolTable implements SymbolTable {
     return result
   }
 
-  buildFromTree(tree: Parser.Tree): void {
+  buildFromTree(tree: TreeSitter.Tree): void {
     this.globalScope.symbols.clear();
     this.globalScope.children = [];
 

@@ -1,6 +1,7 @@
 # NPM
 node_modules/
 *.vsix
+*.wasm
 
 # TypeScript
 out/
