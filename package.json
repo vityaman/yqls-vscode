@@ -32,12 +32,11 @@
         ],
         "configuration": {
             "type": "object",
+            "title": "YQLs",
             "properties": {
-                "languageServerYQLs.option": {
-                    "scope": "resource",
-                    "type": "number",
-                    "default": 100,
-                    "description": "Just a number option."
+                "yqls.minirun.path": {
+                    "type": "string",
+                    "description": "Path to a minirun binary"
                 }
             }
         },
