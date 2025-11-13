@@ -2,11 +2,15 @@
     "name": "yqls-vscode",
     "displayName": "YQLs",
     "description": "VSCode extension for YQLs",
+    "icon": "./assets/y-dark-512x512.png",
     "version": "0.0.1",
     "publisher": "vityaman",
     "repository": {
         "type": "git",
-        "url": "https://github.com/vityaman/yqls-vscode"
+        "url": "https://github.com/vityaman/yqls-vscode.git"
+    },
+    "bugs": {
+        "url": "https://github.com/vityaman/yqls-vscode/issues"
     },
     "categories": [
         "Programming Languages"
