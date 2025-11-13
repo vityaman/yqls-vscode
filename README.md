@@ -23,6 +23,12 @@ CXXFLAGS=-std=c++20 npm install
 
 Then open the repository via the VSCode Editor and launch "Launch Client" via `F5`. Other commands are available in the root `package.json`.
 
+To get a VSIX file:
+
+```bash
+vsce package --follow-symlinks
+```
+
 To check the style:
 
 ```bash
