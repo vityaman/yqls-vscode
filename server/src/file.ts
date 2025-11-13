@@ -3,16 +3,16 @@ import types from './asset/types.json'
 import udfs from './asset/udfs.json'
 import freqs from './asset/frequencies.json'
 
-import Parser from 'web-tree-sitter'
+import Parser from 'tree-sitter'
 import { CompletionItem, CompletionItemKind, integer, Position } from 'vscode-languageserver'
 import { YQLSSymbolTable } from './symbolTable'
 import { formatClojure } from './format'
 
 interface CursorPointsToListPosition {
-  containining: Parser.Node
+  containining: Parser.SyntaxNode
   childrenToTheLeft: integer
   isInsideTheElement: boolean
-  elementPastPosition: Parser.Node
+  elementPastPosition: Parser.SyntaxNode
 }
 
 function less(left: Parser.Point, right: Parser.Point): boolean {
@@ -22,7 +22,7 @@ function less(left: Parser.Point, right: Parser.Point): boolean {
   return left.column < right.column
 }
 
-function isIndexAtWord(position: Parser.Point, node: Parser.Node) {
+function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
   return less(node.startPosition, position) && less(position, { row: node.endPosition.row, column: node.endPosition.column + 1 })
 }
 

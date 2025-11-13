@@ -26,15 +26,12 @@ import { YQLsLanguageService } from './service'
 import { YQLsConfig } from './config'
 import { YQLsDocumentation } from './documentation'
 import { YQLsIssue } from './issue'
-import { initializeYQLsTreeSitter } from './tree-sitter'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
 
 const service = new YQLsLanguageService()
 const documentation = new YQLsDocumentation()
-
-void initializeYQLsTreeSitter()
 
 connection.onInitialize((params: InitializeParams): InitializeResult => {
   connection.console.debug('Connection::onInitialize ' + (params.processId?.toString() ?? ''))

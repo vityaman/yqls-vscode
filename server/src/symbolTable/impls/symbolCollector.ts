@@ -1,4 +1,4 @@
-import TreeSitter from "web-tree-sitter";
+import Parser from "tree-sitter";
 import { Location } from 'vscode-languageserver';
 import { Symbol } from '../symbol';
 import { Scope } from '../scope';
@@ -14,7 +14,7 @@ export class SymbolCollector {
         this.currentScope = rootScope;
     }
 
-    collect(node: TreeSitter.Node): void {
+    collect(node: Parser.SyntaxNode): void {
         if (node.type === 'list') {
             this.handleList(node);
         }
@@ -27,7 +27,7 @@ export class SymbolCollector {
         }
     }
 
-    private handleList(node: TreeSitter.Node): void {
+    private handleList(node: Parser.SyntaxNode): void {
         if (node.childCount < 2) {
             return;
         }
@@ -51,7 +51,7 @@ export class SymbolCollector {
         }
     }
 
-    private handleDeclaration(node: TreeSitter.Node, command: string): void {
+    private handleDeclaration(node: Parser.SyntaxNode, command: string): void {
         const elements = this.getElements(node);
         if (elements.length < 2) {
             return;
@@ -82,7 +82,7 @@ export class SymbolCollector {
         this.currentScope.symbols.set(symbol.name, symbol);
     }
 
-    private handleIdentifierReferences(node: TreeSitter.Node): void {
+    private handleIdentifierReferences(node: Parser.SyntaxNode): void {
         const elements = this.getElements(node);
 
         for (const element of elements) {
@@ -99,7 +99,7 @@ export class SymbolCollector {
         }
     }
 
-    private getFirstElement(listNode: TreeSitter.Node): TreeSitter.Node | null {
+    private getFirstElement(listNode: Parser.SyntaxNode): Parser.SyntaxNode | null {
         for (let i = 0; i < listNode.childCount; i++) {
             const child = listNode.child(i);
             if (child && child.type === 'element') {
@@ -109,8 +109,8 @@ export class SymbolCollector {
         return null;
     }
 
-    private getElements(listNode: TreeSitter.Node): TreeSitter.Node[] {
-        const elements: TreeSitter.Node[] = [];
+    private getElements(listNode: Parser.SyntaxNode): Parser.SyntaxNode[] {
+        const elements: Parser.SyntaxNode[] = [];
         for (let i = 0; i < listNode.childCount; i++) {
             const child = listNode.child(i);
             if (child && child.type === 'element') {
@@ -120,7 +120,7 @@ export class SymbolCollector {
         return elements;
     }
 
-    private getIdentFromElement(elementNode: TreeSitter.Node): TreeSitter.Node | null {
+    private getIdentFromElement(elementNode: Parser.SyntaxNode): Parser.SyntaxNode | null {
         for (let i = 0; i < elementNode.childCount; i++) {
             const child = elementNode.child(i);
             if (!child) continue;
@@ -139,7 +139,7 @@ export class SymbolCollector {
         return null;
     }
 
-    private extractTypeInfo(typeElement: TreeSitter.Node): string | undefined {
+    private extractTypeInfo(typeElement: Parser.SyntaxNode): string | undefined {
         const text = typeElement.text;
         return text;
     }
@@ -165,7 +165,7 @@ export class SymbolCollector {
             loc1.range.end.character === loc2.range.end.character;
     }
 
-    private nodeToLocation(node: TreeSitter.Node): Location {
+    private nodeToLocation(node: Parser.SyntaxNode): Location {
         return {
             uri: this.documentUri,
             range: {
