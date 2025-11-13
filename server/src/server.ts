@@ -126,6 +126,13 @@ connection.onCompletion((request: TextDocumentPositionParams): CompletionItem[] 
 
 connection.onCompletionResolve((request: CompletionItem): CompletionItem => {
   connection.console.debug(`Connection::onCompletionResolve ${request.label}`)
+  const docs = documentation.findByName(request.label)
+  if (docs) {
+    request.documentation = {
+      kind: 'markdown',
+      value: docs,
+    }
+  }
   return request
 })
 
