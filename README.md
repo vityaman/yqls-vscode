@@ -7,7 +7,6 @@ The extension provides a support for the YQLs query language, known for its usag
 - Syntax highlighting
 - Context-sensitive autocompletion with ranking
 - Autoformattig
-- Go to defintion/references
+- Go to defintion
 - On hover and completion item documentation
-- Binding rename
 - Diagnostics via the `minirun` tool
