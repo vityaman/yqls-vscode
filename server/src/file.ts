@@ -43,7 +43,7 @@ export class YQLsFile {
   #types = types
   #udfs: string[]
   #freqs = new Map<string, number>(Object.entries(freqs as FrequenciesData))
-
+  #keywords = ["let", "declare", "return"]
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
@@ -178,6 +178,13 @@ export class YQLsFile {
     const caretState = this.findNodeUnderPosition(position)
 
     if (caretState.childrenToTheLeft == 0) {
+      for (const keyword of this.#keywords) {
+        result.push({
+          kind: CompletionItemKind.Keyword,
+          label: keyword,
+          sortText: this.numberToReverseOrderPreservingString(this.maxPriority),
+        })
+      }
       for (const callable of this.#callables) {
         let priority = 0
         if (this.#freqs.has(callable.name)) {
