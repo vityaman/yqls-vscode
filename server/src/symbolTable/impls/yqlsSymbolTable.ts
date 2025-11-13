@@ -6,6 +6,16 @@ import { Scope } from '../scope';
 import { ScopeType } from '../models/scopeType';
 import { SymbolCollector } from './symbolCollector';
 
+function compare(lhs: Position, rhs: Position): boolean {
+  if (lhs.line < rhs.line) {
+    return true
+  }
+  if (rhs.line < lhs.line) {
+    return false;
+  }
+  return lhs.character < rhs.character;
+}
+
 export class YQLSSymbolTable implements SymbolTable {
   private globalScope: Scope;
   private documentUri: string;
@@ -22,11 +32,13 @@ export class YQLSSymbolTable implements SymbolTable {
       }
     };
   }
+
   findVisibleSymbolsAt(position: Position): Symbol[] {
-    void position
     let result: Symbol[] = []
     for (let x of this.globalScope.symbols.values()) {
-      result.push(x)
+      if (compare(x.location.range.end, position)) {
+        result.push(x)
+      }
     }
     return result
   }
