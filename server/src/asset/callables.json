@@ -285,10 +285,10 @@
         "name": "CombineCore"
     },
     {
-        "name": "Commit"
+        "name": "Commit!"
     },
     {
-        "name": "CommitAll"
+        "name": "CommitAll!"
     },
     {
         "name": "CommonJoinCore"
@@ -1479,7 +1479,7 @@
         "name": "ReprCode"
     },
     {
-        "name": "ResFill"
+        "name": "ResFill!"
     },
     {
         "name": "ResFor"
