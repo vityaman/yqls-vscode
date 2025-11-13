@@ -47,6 +47,10 @@
                 "yqls.minirun.path": {
                     "type": "string",
                     "description": "Path to a minirun binary"
+                },
+                "yqls.udf.path": {
+                    "type": "string",
+                    "description": "Path where to search UDFs"
                 }
             }
         },

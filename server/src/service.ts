@@ -26,6 +26,9 @@ export class YQLsLanguageService {
     this.#config = {
       minirun: {
       },
+      udf: {
+
+      },
     }
   }
 
@@ -122,7 +125,7 @@ export class YQLsLanguageService {
     const file = this.fileByUri(uri)
     const text = file.getText()
 
-    const minirun = new YQLsMinirun(path)
+    const minirun = new YQLsMinirun(path, this.#config.udf.path)
     return minirun.execute(text).issues
   }
 }

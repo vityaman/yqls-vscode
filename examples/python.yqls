@@ -1,0 +1,26 @@
+((let type (CallableType
+            '()
+            '((DataType 'Int32))
+            '((ListType (DataType 'Int32)))
+            '((DataType 'Int32) '"")))
+ (let body (String '@@#py
+from bisect import bisect_left
+
+def lower_bound(a, t) :
+  return bisect_left(a, t)
+
+lower_bound._yql_lazy_input = False
+@@))
+ (let lower_bound (ScriptUdf 'Python3 '"lower_bound" type body))
+
+ (let print (lambda '(world rows) (block '(
+  (let sink (DataSink 'result))
+  (let options '('('type) '('autoref) '('unordered)))
+  (let world (ResFill! world sink (Key) rows options '"pure"))
+  (return (Commit! world sink))
+ ))))
+
+ (let a (AsList (Int32 '"1") (Int32 '"2") (Int32 '"3")))
+ (let i (Apply lower_bound a (Int32 '"2")))
+
+ (return (Apply print world (AsList (AsStruct '('"i" i))))))
