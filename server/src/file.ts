@@ -27,16 +27,12 @@ function isIndexAtWord(position: Parser.Point, node: Parser.SyntaxNode) {
 }
 
 interface Item {
-  name: string;
+  name: string
 }
 
-interface Data {
-  [key: string]: Item[];
-}
+type Data = Record<string, Item[]>
 
-interface FrequenciesData {
-  [key: string]: number;
-}
+type FrequenciesData = Record<string, number>
 
 export class YQLsFile {
   #text: string
@@ -46,18 +42,17 @@ export class YQLsFile {
   #callables = callables
   #types = types
   #udfs: string[]
-  #freqs: Map<string, number> = new Map(Object.entries(freqs as FrequenciesData))
-
+  #freqs = new Map<string, number>(Object.entries(freqs as FrequenciesData))
 
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
 
-    const data: Data = udfs as Data;
+    const data: Data = udfs as Data
 
     const result: string[] = Object.entries(data).flatMap(([category, items]) =>
-      items.map(item => `'${category}.${item.name}`)
-    );
+      items.map(item => `'${category}.${item.name}`),
+    )
     this.#udfs = result
 
     console.log(callables)
@@ -79,7 +74,7 @@ export class YQLsFile {
   }
 
   formatted(): string {
-    console.log("formatted!!!")
+    console.log('formatted!!!')
 
     const result = formatClojure(this.#text)
     if (result.status != 'success') {
@@ -157,25 +152,26 @@ export class YQLsFile {
       }
     }
   }
+
   numberToReverseOrderPreservingString(num: number): string {
     const maxValue = 999999
     const desiredLength = 6
-    const invertedNum = maxValue - num;
-    return "$$$" + String(invertedNum).padStart(desiredLength, '0');
+    const invertedNum = maxValue - num
+    return '$$$' + String(invertedNum).padStart(desiredLength, '0')
   }
+
   maxPriority = 99999
 
-
   candidatesAt(position: Position): CompletionItem[] {
-    let localVars = this.#symbolTable.findVisibleSymbolsAt(position);
+    const localVars = this.#symbolTable.findVisibleSymbolsAt(position)
     const result: CompletionItem[] = [
       { kind: CompletionItemKind.Text, label: 'Text' },
     ]
-    for (let s of localVars) {
+    for (const s of localVars) {
       result.push({
         kind: CompletionItemKind.Variable,
         label: s.name,
-        sortText: this.numberToReverseOrderPreservingString(this.maxPriority)
+        sortText: this.numberToReverseOrderPreservingString(this.maxPriority),
       })
     }
     const caretState = this.findNodeUnderPosition(position)
@@ -189,7 +185,7 @@ export class YQLsFile {
         result.push({
           kind: CompletionItemKind.Function,
           label: callable.name,
-          sortText: this.numberToReverseOrderPreservingString(priority)
+          sortText: this.numberToReverseOrderPreservingString(priority),
         })
       }
       for (const type of this.#types) {
@@ -197,10 +193,10 @@ export class YQLsFile {
         if (this.#freqs.has(type.name)) {
           priority = this.#freqs.get(type.name)!
         }
-        result.push({ kind: CompletionItemKind.Class, label: type.name, sortText: this.numberToReverseOrderPreservingString(priority)})
+        result.push({ kind: CompletionItemKind.Class, label: type.name, sortText: this.numberToReverseOrderPreservingString(priority) })
       }
     }
-    let isFirstUds = caretState.containining.child(1)?.text == "Udf"
+    const isFirstUds = caretState.containining.child(1)?.text == 'Udf'
     if (caretState.childrenToTheLeft == 1 && isFirstUds) {
       for (const udf of this.#udfs) {
         result.push({ kind: CompletionItemKind.Function, label: udf })
@@ -213,7 +209,7 @@ export class YQLsFile {
   nameAt(position: Position): string | undefined {
     const node = this.parseTree.rootNode.descendantForPosition({
       row: position.line,
-      column: position.character
+      column: position.character,
     })
     if (node) {
       return node.text

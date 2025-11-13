@@ -22,7 +22,7 @@ export class YQLsLanguageService {
 
   fileByUri(uri: DocumentUri): YQLsFile {
     if (!this.#filesByUri.has(uri)) {
-      this.#filesByUri.set(uri, new YQLsFile("", this.#parser.parse(""), uri))
+      this.#filesByUri.set(uri, new YQLsFile('', this.#parser.parse(''), uri))
     }
 
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -73,7 +73,7 @@ export class YQLsLanguageService {
       if (elementDecl.type != 'element')
         continue
       // we assume that at this level there are only lists as elements
-    //   console.log(elementDecl.text)
+      //   console.log(elementDecl.text)
 
       assert(elementDecl.childCount == 1)
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

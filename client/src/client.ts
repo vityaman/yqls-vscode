@@ -32,8 +32,8 @@ export function activate(context: ExtensionContext) {
       },
     ],
     initializationOptions: {
-      assetsPath: context.extensionPath
-    }
+      assetsPath: context.extensionPath,
+    },
   }
 
   client = new LanguageClient(
