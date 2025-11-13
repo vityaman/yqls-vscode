@@ -43,7 +43,7 @@ export class YQLsFile {
   #types = types
   #udfs: string[]
   #freqs = new Map<string, number>(Object.entries(freqs as FrequenciesData))
-  #keywords = ["let", "declare", "return"]
+  #keywords = ["let", "declare", "return", "block"]
   constructor(text: string, parseTree: Parser.Tree, uri: string) {
     this.#text = text
     this.parseTree = parseTree
@@ -176,7 +176,10 @@ export class YQLsFile {
       })
     }
     const caretState = this.findNodeUnderPosition(position)
-
+    let above = caretState.containining.parent
+    if (above != null && above.type == 'quotedatom') {
+      return []
+    }
     if (caretState.childrenToTheLeft == 0) {
       for (const keyword of this.#keywords) {
         result.push({
