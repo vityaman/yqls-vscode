@@ -36,12 +36,7 @@ export function activate(context: ExtensionContext) {
     },
   }
 
-  client = new LanguageClient(
-    'languageServerYQLs',
-    'YQLs LSP Server',
-    serverOptions,
-    clientOptions,
-  )
+  client = new LanguageClient('yqls', 'YQLs LSP', serverOptions, clientOptions)
 
   void client.start()
 }

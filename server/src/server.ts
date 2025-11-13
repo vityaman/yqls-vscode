@@ -3,6 +3,8 @@ import {
   createConnection,
   Definition,
   DefinitionParams,
+  Diagnostic,
+  DidChangeConfigurationNotification,
   DocumentDiagnosticParams,
   DocumentDiagnosticReport,
   DocumentDiagnosticReportKind,
@@ -10,6 +12,7 @@ import {
   Hover,
   HoverParams,
   InitializeParams,
+  InitializeResult,
   ProposedFeatures,
   TextDocumentChangeEvent,
   TextDocumentPositionParams,
@@ -20,7 +23,9 @@ import {
 
 import { TextDocument } from 'vscode-languageserver-textdocument'
 import { YQLsLanguageService } from './service'
+import { YQLsConfig } from './config'
 import { YQLsDocumentation } from './documentation'
+import { YQLsIssue } from './issue'
 
 const connection = createConnection(ProposedFeatures.all)
 const documents = new TextDocuments(TextDocument)
@@ -28,7 +33,7 @@ const documents = new TextDocuments(TextDocument)
 const service = new YQLsLanguageService()
 const documentation = new YQLsDocumentation()
 
-connection.onInitialize((params: InitializeParams) => {
+connection.onInitialize((params: InitializeParams): InitializeResult => {
   connection.console.debug('Connection::onInitialize ' + (params.processId?.toString() ?? ''))
   return {
     capabilities: {
@@ -48,16 +53,38 @@ connection.onInitialize((params: InitializeParams) => {
 })
 
 connection.onInitialized(() => {
-  documentation.initializeName()
-  connection.console.debug(`Documents names initialized...`)
   connection.console.debug(`Connection::onInitialized`)
+  documentation.initializeName()
+  void connection.client.register(DidChangeConfigurationNotification.type)
+})
+
+connection.onDidChangeConfiguration(() => {
+  connection.console.debug(`Connection::onDidChangeConfiguration`)
+  void (async () => {
+    const config = await connection.workspace.getConfiguration('yqls') as object
+    service.updateConfig(config as YQLsConfig)
+  })()
 })
 
 connection.languages.diagnostics.on((request: DocumentDiagnosticParams) => {
   connection.console.debug(`Connection::languages::diagnostics::on ${request.textDocument.uri}`)
+
+  const uri = request.textDocument.uri
+  const issues = service.minirun(uri)
+
   return {
     kind: DocumentDiagnosticReportKind.Full,
-    items: [],
+    items: issues.map((issue: YQLsIssue): Diagnostic => {
+      return {
+        range: {
+          start: issue.position,
+          end: issue.position,
+        },
+        severity: issue.severity,
+        source: 'YQLs',
+        message: issue.message,
+      }
+    }),
   } satisfies DocumentDiagnosticReport
 })
 

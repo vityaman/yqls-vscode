@@ -1,8 +1,11 @@
-import { DocumentUri } from 'vscode-languageserver'
+import { DiagnosticSeverity, DocumentUri } from 'vscode-languageserver'
 import { YQLsFile } from './file'
 import { YQLsTreeSitter } from './tree-sitter'
 import Parser from 'tree-sitter'
 import { assert } from 'console'
+import { YQLsIssue } from './issue'
+import { YQLsConfig } from './config'
+import { YQLsMinirun } from './minirun'
 
 interface ExportNode {
   ident: string
@@ -13,11 +16,17 @@ export class YQLsLanguageService {
   #filesByUri: Map<DocumentUri, YQLsFile>
   #parser: YQLsTreeSitter
   exportedSymbols: string[]
+  #config: YQLsConfig
 
   constructor() {
     this.#filesByUri = new Map()
     this.#parser = new YQLsTreeSitter()
     this.exportedSymbols = []
+
+    this.#config = {
+      minirun: {
+      },
+    }
   }
 
   fileByUri(uri: DocumentUri): YQLsFile {
@@ -57,7 +66,7 @@ export class YQLsLanguageService {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const potentialSymbol = this.unwrapElemAtomIdent(node.child(2)!)
     if (potentialExport != null && potentialSymbol != null) {
-    //   console.log(`export=${potentialExport} symbol = ${potentialSymbol}`)
+      //   console.log(`export=${potentialExport} symbol = ${potentialSymbol}`)
     }
     return null
   }
@@ -92,5 +101,28 @@ export class YQLsLanguageService {
     const exported = this.extractExportedSymbols(parseTree)
     void exported
     file.setText(text, parseTree)
+  }
+
+  updateConfig(config: YQLsConfig) {
+    this.#config = config
+  }
+
+  minirun(uri: DocumentUri): YQLsIssue[] {
+    const path = this.#config.minirun.path
+    if (!path) {
+      return [
+        {
+          position: { line: 0, character: 0 },
+          severity: DiagnosticSeverity.Information,
+          message: 'Minirun path is not set',
+        },
+      ]
+    }
+
+    const file = this.fileByUri(uri)
+    const text = file.getText()
+
+    const minirun = new YQLsMinirun(path)
+    return minirun.execute(text).issues
   }
 }

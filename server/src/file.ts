@@ -55,13 +55,14 @@ export class YQLsFile {
     )
     this.#udfs = result
 
-    console.log(callables)
-    console.log(types)
-
     this.#symbolTable = new YQLSSymbolTable(uri)
     if (parseTree.rootNode) {
       this.#symbolTable.buildFromTree(parseTree)
     }
+  }
+
+  getText(): string {
+    return this.#text
   }
 
   setText(text: string, parseTree: Parser.Tree) {
