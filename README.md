@@ -11,3 +11,5 @@ The extension provides a support for the YQLs query language, known for its usag
 - On hover and completion item documentation
 - Binding rename
 - Diagnostics via the `minirun` tool
+
+## [Slides](slides.pdf)
