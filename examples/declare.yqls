@@ -1,0 +1,12 @@
+((let print
+   (lambda '(world rows)
+     (block
+       '((let sink (DataSink 'result))
+         (let options '('('type) '('autoref) '('unordered)))
+         (let world (ResFill! world sink (Key) rows options '"pure"))
+         (return (Commit! world sink))))))
+
+ (declare token (DataType 'String))
+
+ (let world (Apply print world (AsList token)))
+ (return world))

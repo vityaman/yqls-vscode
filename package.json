@@ -2,7 +2,7 @@
     "name": "yqls-vscode",
     "displayName": "YQLs",
     "description": "VSCode extension for YQLs",
-    "icon": "./assets/y-dark-512x512.png",
+    "icon": "assets/y-dark-512x512.png",
     "version": "0.0.1",
     "publisher": "vityaman",
     "repository": {

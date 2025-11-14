@@ -1,21 +1,29 @@
-(declare $my_variable (DataType String))
-(declare $another_var (DataType Int32))
-(declare $date_param (DataType Date))
+((let print
+   (lambda '(world rows)
+     (block
+       '((let sink (DataSink 'result))
+         (let options '('('type) '('autoref) '('unordered)))
+         (let world (ResFill! world sink (Key) rows options '"pure"))
+         (return (Commit! world sink))))))
 
-(let result (block '(
-  (let filtered (SelectRange 
-    (DataSource '"//home/table")
-    '("column1" "column2")
-    (Filter (== (Member '"column1") $my_variable))
-  ))
-  (return filtered)
-)))
+ (let $my_variable (String '1))
+ (let $another_var (Int32 '1))
 
-(letAlocal (AsList
-  (AsStruct 
-    '("var1" $my_variable)
-    '("var2" $another_var)
-    '("date" $date_param)
-  )
-))
-()
+ (let result
+   (block
+     '((let filtered
+         (SelectRange
+           (DataSource '"//home/table")
+           '('"column1" '"column2")
+           (Filter (== (Member '"column1") $my_variable))))
+       (return filtered))))
+
+ ()
+
+ (let local (AsList
+              (AsStruct
+                '('"var1" $my_variable)
+                '('"var2" $another_var))))
+
+ (let world (Apply print world local))
+ (return world))

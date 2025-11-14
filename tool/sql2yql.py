@@ -137,7 +137,7 @@ def all_callable_names(ydb_path: str) -> Iterable[str]:
     print(f"  sql2yql: {sql2yql_failures}")
     print(f"  minirun: {minirun_failures}")
 
-regex_callable = re.compile(r"(?<=[^\()']\()[A-Z][A-Za-z0-9]+")
+regex_callable = re.compile(r"(?<=[^\()']\()[A-Z][A-Za-z0-9]+!?")
 
 
 def callables(text: str) -> Iterable[str]:
