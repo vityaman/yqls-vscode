@@ -11,9 +11,4 @@ The extension provides a support for the YQLs query language, known for its usag
 - On hover and completion item documentation
 - Diagnostics via the `minirun` tool
 
-## Getting started
-
-- `npm ci`
-- open the project in VsCode + press F5
-
 ## [Slides](slides.pdf)
