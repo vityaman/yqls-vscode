@@ -12,6 +12,7 @@ Then open the repository via the VSCode Editor and launch "Launch Client" via `F
 To get a VSIX file:
 
 ```bash
+npm install -g @vscode/vsce
 vsce package --follow-symlinks
 ```
 
