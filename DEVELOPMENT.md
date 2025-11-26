@@ -3,6 +3,7 @@
 Install required npm packages:
 
 ```bash
+npm install node-addon-api
 npm install -g node-gyp
 CXXFLAGS=-std=c++20 npm install
 ```
